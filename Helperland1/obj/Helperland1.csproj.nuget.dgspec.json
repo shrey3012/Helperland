@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shrey\\source\\repos\\Helperland1\\Helperland1\\Helperland1.csproj": {}
+    "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland1\\Helperland1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shrey\\source\\repos\\Helperland1\\Helperland1\\Helperland1.csproj": {
+    "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland1\\Helperland1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shrey\\source\\repos\\Helperland1\\Helperland1\\Helperland1.csproj",
+        "projectUniqueName": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland1\\Helperland1.csproj",
         "projectName": "Helperland1",
-        "projectPath": "C:\\Users\\shrey\\source\\repos\\Helperland1\\Helperland1\\Helperland1.csproj",
+        "projectPath": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland1\\Helperland1.csproj",
         "packagesPath": "C:\\Users\\shrey\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shrey\\source\\repos\\Helperland1\\Helperland1\\obj\\",
+        "outputPath": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\shrey\\AppData\\Roaming\\NuGet\\NuGet.Config",
