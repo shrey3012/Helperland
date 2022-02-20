@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+body { font-family: 'Roboto';}
+.navbar{
+  height: 64px;
+  padding: 4px 15px 4px;
+  opacity: 0.8;
+  background-color: #525252;
+}
+.navbar-nav{
+  background-color: #525252;
+  padding-top: 2px;
+}
+.logo{
+    width: 73px;
+    height: 54px;
+    margin: 0 30px 0 0;
+}
+.collaps{
+  background-color: #525252;
+}
+nav ul li a{
+	text-decoration: none;
+	color: #ffffff;
+	font-size: 14px;
+	font-family: Roboto;
+	border-radius: 20px;
+}
+.navborder{
+	border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.navblue{
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	background-color: #29626d;
+}
+.navbar span.navbar-toggler-icon {
+  background-image: url("../img/hamburger.svg");
+  color: white;
+}
+/* tabs */
+.servicebook{
+  margin-left: 20px;
+}
+.tabs {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.active-tab {
+  background-color: #1d7a8c !important;
+        color: #fff !important;
+    }
+
+/* Style the buttons inside the tab */
+.tabs button {
+  background-color: #f3f3f3;
+  color: #646464;
+  border: none;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  min-width: 200px;
+}
+
+/* Change background color of buttons on hover */
+.tabs button:hover {
+  background-color: #1d7a8c;
+  color: #fff;
+}
+
+/* Create an active/current tablink class */
+.tabs button.active {
+  background-color: #1d7a8c;
+  color: #fff;
+}
+
+/* Style the tab content */
+.tabcontent {
+  flex: row;
+   padding: 6px 12px; 
+ 
+  border-top: none;
+}
+
+
+/*tab end*/
+
+.img-fluid{
+    height: 370px;
+    width: 100%;
+    background-size: cover;
+    margin: 62px 0 20px; 
+  }
+  .FAQs h1{
+    margin: 39px 0 18px 0;
+    font-size: 36px;
+    font-weight: 500;
+    color: #4f4f4f;
+  }
+  table.center {
+    margin-left: auto; 
+    margin-right: auto;
+  }
+  .row .container{
+    max-width: 1109px;
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #1D7A8C;
+}
+.nav-pills .nav-link{
+  background-color: #F3F3F3;
+  color: #646464;
+}
+.nav{
+  margin-top: 42px;
+}
+
+#dv-setup-service-steps{ 
+  width: 70%;
+  color: #646464;
+}
+#dv-payment-summary-container{ 
+  width: 30%;
+  display: block;
+}
+.setupcleaningsertab{
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 60px;
+  font-size: 16px;
+  border-radius: 2px;
+  border: 1px solid #e1e1e1;
+  border-bottom: 1px solid #1D7A8C;
+}
+.nonactive-setupcleaningsertab{
+  background-color: #F3F3F3;
+  color: #646464;
+}
+.active-setupcleaningsertab{
+  background-color: #1D7A8C;
+  color: white;  
+  position: relative;
+}
+.active-setupcleaningsertab:after{
+  position: absolute;
+  content:"";
+  display:block;
+border-left: 12px solid transparent;
+border-right: 12px solid transparent;
+border-top: 12px solid #1D7A8C;
+  left: 43%;
+  top: 58px;
+}
+.setup-cleaningser-steps-text{
+  display: block;
+}
+.sel-rooms-baths{
+  width: 100px;
+  float: left;
+}
+.sel-timeforser{
+  width: 150px;
+  float: left;
+}
+.hr-setup-ser{
+  border: 1px solid #C8C8C8;
+  background-color: #C8C8C8;
+  clear: both;
+}
+.calender-icon{
+  background: transparent url(../img/admin-calendar-blue.png) 9px center no-repeat!important;
+  position: relative;
+  z-index: 1;
+  padding-left: 37px;
+}
+.dateForService, .timeForService{
+  position: relative;
+  padding-left: 35px;
+  padding-right: 0px !important;
+  width: 150px;
+  float: left;
+}
+.dateForService::-webkit-inner-spin-button,
+.dateForService::-webkit-calendar-picker-indicator {
+  font-size: 30px;
+  background: transparent url(../img/admin-calendar-blue.png) 9px center no-repeat!important;
+  left: -25px;
+  position: absolute;
+}
+.cock-icon{
+  background: transparent url(../img/upcoming-service/clock.png) 9px center no-repeat!important;
+  position: relative;
+  z-index: 1;
+  padding-left: 37px;
+}
+.timeForService::-webkit-inner-spin-button,
+.timeForService::-webkit-calendar-picker-indicator {
+  font-size: 30px;
+  background: transparent url(../images/upcoming-service/clock.png) 9px center no-repeat!important;
+  left: -10px;
+  position: absolute;
+}
+.dv-setupsers-extra-services{
+  text-align: center;
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+.setupser-extrasers{
+  height: 108px;
+  width: 108px;
+  border: 1px solid #F1F1F1;
+  border-radius: 50%;
+  
+  display: flex;
+}
+.serselected-border{
+  border: 3px solid #1D7A8C;
+}
+.btnContinueSetupSerProc{
+  color: white;
+  background-color: #1d7a8c;
+  font-size: 16px;
+  border: 1px solid #6da9b5;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+.btnContinueSetupSerProc:hover{
+  background-color: #146371;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.dv-payment-summary{
+  width: 100%;
+  height: auto;
+  box-shadow: 0 0px 4px 0 rgba(100, 100, 100, 0.2), 0 4px 20px 0 rgba(100, 100, 100, 0.19);
+  color: #646464;
+  font-size: 15px;
+}
+.dv-payment-summary .head{
+  width: 100%;
+  height: 60px;
+  background-color: #1D7A8C;
+  color: white;
+  font-size: 16px;
+}
+.dv-payment-summary .foot{
+  width: 100%;
+  height: 40px;
+  background-color: #F1F1F1;
+  color: #646464;
+  font-size: 14px;
+}
+.dv-percleaning{
+  color: #1d7a8c;
+}
+.formorehelp{
+  text-decoration: none;
+  color: #1d7a8c;
+}
+.formorehelp:hover{
+  color: #146371;
+}
+.accordionFAQ .accordion-button::after{
+  content: none;
+}
+.accordionFAQ .accordion-button::before{
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  content: "";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f054";
+  background-image: none;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  margin-left: 0px;
+}
+.accordionFAQ .accordion-button:not(.collapsed)::before {
+  transform: rotate(90deg);   
+}
+.accordionFAQ .accordion-button{
+  font-size: 15px;
+  color: #646464;
+  font-weight: normal !important;
+}
+.accordionFAQ .accordion-button:focus{
+  border: none;
+  box-shadow: none;
+}
+.accordionFAQ .accordion-button:not(.collapsed){
+  border: none;
+  box-shadow: none;
+  color: #646464;
+  background-color: white;
+}
+.accordionFAQ .accordion-item{
+  border-bottom: 2px solid #e1e1e1 !important;
+  border: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+.accordionFAQ .accordion-item h2 .collapsed{
+  transform: rotate(0 de);
+}
+.accordionFAQ .accordion-item h2 button{
+  padding-left: 0 ;
+}
+.accordionFAQ .accordion-item .accordion-body{
+  font-size: 15px;
+  color: #646464;
+  padding-top: 0px;
+  padding-left: 30px;
+  text-align: justify;
+}
+
+
+.site-footer .container { max-width: 1420px; }
+.site-footer .footer-top { background: #111111; padding: 27px 0; margin-top: 50px;}
+.site-footer a { display: inline-block; }
+.site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer ul.footer-navigation li a:hover, .site-footer ul.social-media-list a:hover { opacity: 0.8; }
+.site-footer ul.footer-navigation { flex-wrap: wrap; }
+.site-footer ul.footer-navigation li+li { margin-left: 30px; }
+.site-footer ul.footer-navigation li a { color: #F1F1F1; text-decoration: none; text-transform: uppercase; font-size: 14px; line-height: 2.14; transition: opacity 0.3s; }
+.site-footer ul.social-media-list li { text-align: center; }
+.site-footer ul.social-media-list a { width: 20px; height: 20px; transition: opacity 0.3s; }
+.site-footer ul.social-media-list li:last-child { margin-left: 20px; }
+.site-footer .footer-bottom { background: #292929; padding: 19px 0; position: relative; }
+.site-footer .footer-bottom p { color: #f1f1f1; margin-bottom: 0; font-size: 14px; }
+.site-footer .footer-bottom p a { text-decoration: none; color: #6EABEF; }

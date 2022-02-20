@@ -1,0 +1,488 @@
+﻿@{
+    Layout = "_LoginView";
+}
+@model ServiceRequest
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookService</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel=stylesheet>
+    <link href="~/css/bookservicestyle.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="~/js/bs.js"></script>
+</head>
+<body>
+    <header>
+
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a asp-action="index" title="Helper hand">
+                    <img src="~/img/site-logo.png" alt="Helper hand logo" class="logo">
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" asp-action="bookservice">Book now</a></li>
+                            <li class="my-2 mx-2"><a class="navborder py-2 px-3" asp-action="prices">Prices & services</a></li>
+                            <li class="my-2 mx-2"><a class="py-2 px-3" href="#">Warranty</a></li>
+                            <li class="my-2 mx-2"><a class="py-2 px-3" href="#">Blog</a></li>
+                            <li class="my-2 me-2"><a class="py-2 px-3" asp-action="contactus">Contact</a></li>
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" href="#">Login</a></li>
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" asp-action="becomeaprovider">Become a Helper</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <img src="~/img/book-service-banner.jpg" class="img-fluid">
+        <section class="FAQs">
+            <h1 class="text-center">Set up your cleaning service</h1>
+            <table class="center">
+                <tr class="align-items-center">
+                    <td width="65px"><hr class="line"></td>
+                    <td width="40px" class="text-center"><img src="~/img/star.png.png"></td>
+                    <td width="65px"><hr class="line"></td>
+                </tr>
+            </table>
+        </section>
+
+        <div class="row container d-flex justify-content-center align-items-flex-start my-5 " style="margin-left: 130px;">
+            <div class="col md-8">
+                <div class="tabs">
+                    <button class="tab active-tab" id="tab1" onclick="Tab1Click()"><img src="~/img/setup-service.png"> setup Service</button>
+                    <button class="tab" id="tab2" onclick="Tab2Click()"><img src="~/img/schedule.png"> Schedule & Plan</button>
+                    <button class="tab" id="tab3" onclick="Tab3Click()"><img src="~/img/details.png"> Your Details</button>
+                    <button class="tab" id="tab4" onclick="Tab4Click()"><img src="~/img/payment.png"> Make Payment</button>
+                </div>
+                
+                    <div class="tabcontent">
+                        <div class="tabContent1" id="tabContent1">
+                            <div id="dv-setup-service">
+                                <p class="fw-bold">Enter your Postal Code</p>
+                                <div class="row">
+                                    <div class="col-md-4 pb-2">
+                                        <input id="txtzipcode" name="ZipCode" required type="text" pattern="[0-9]*" asp-for="ZipCode">
+                                        <small class="text-danger" id="spnCheckAvailability"></small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" value="Check Availability" class="btnContinueSetupSerProc px-4 py-2" id="enterZipcode" onclick="checkAvailabilityOfSP();">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tabContent2" class="tabContent2" style="display:none;">
+                            <div id="dv-schedule-plan">
+
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <p class="fw-bold">When do you need the cleaner?</p>
+                                        <input type="date" id="StartDate" class="dateForService calender-icon form-control me-2 mb-2" asp-for="ServiceStartDate">
+                                        <div class="sel-timeforser mb-4">
+                                            <select class="form-select" id="StartTime">
+                                                <option value="t1" selected>01:00 PM</option>
+                                                <option value="t2">02:00 PM</option>
+                                                <option value="t3">03:00 PM</option>
+                                                <option value="t4">04:00 PM</option>
+                                                <option value="t5">05:00 PM</option>
+                                                <option value="t6">06:00 PM</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <p class="fw-bold">How long do you need the cleaner to stay?</p>
+                                        <div class="sel-rooms-baths mb-4">
+                                            <select class="form-select" id="Hours">
+                                                <option value1="1" selected>3 Hr</option>
+                                                <option value1="2">3.5 Hr</option>
+                                                <option value1="3">4 Hr</option>
+                                                <option value1="4">4.5 Hr</option>
+                                                <option value1="5">5 Hr</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="hr-setup-ser" />
+                                <p class="fw-bold">Extra services</p>
+                                <div class="setupser-extrasers mb-5">
+                                    <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerCabinet();">
+                                        <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-cabinet">
+                                            <img src="~/img/3.png" id="ser-cabinet">
+                                        </div>
+                                        <div class="fs1 ser-name">Inside cabinets</div>
+                                    </div>
+                                    <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerFridge();">
+                                        <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-fridge">
+                                            <img src="~/img/5.png" id="ser-fridge">
+                                        </div>
+                                        <div class="fs1 ser-name">Inside fridge</div>
+                                    </div>
+                                    <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerOven();">
+                                        <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-oven">
+                                            <img src="~/img/4.png" id="ser-oven">
+                                        </div>
+                                        <div class="fs1 ser-name">Inside oven</div>
+                                    </div>
+                                    <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerLaundry();">
+                                        <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-laundry">
+                                            <img src="~/img/2.png" id="ser-laundry">
+                                        </div>
+                                        <div class="fs1 ser-name">Laundry wash & dry</div>
+                                    </div>
+                                    <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerWindows();">
+                                        <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-windows">
+                                            <img src="~/img/1.png" id="ser-windows">
+                                        </div>
+                                        <div class="fs1 ser-name">Interior windows</div>
+                                    </div>
+                                </div>
+
+                                <p class="fw-bold">Comments</p>
+                                <textarea class="form-control"></textarea>
+                                <div class="my-3">
+                                    <input type="checkbox" class="form-check-input" id="cbhavePets">
+                                    <labe for="cbhavePets" class="form-check-label ms-1">I have pets at home</labe>
+                                </div>
+                                <hr class="hr-setup-ser" />
+                                <button class="btnContinueSetupSerProc px-4 py-2 float-end" onclick="SaveServiceDetail();">Continue</button>
+                            </div>
+                        </div>
+
+                        <div id="tabContent3" class="tabContent3" style="display:none;">
+                            @*<div id="divAddress"></div>
+                            <input type="text" id="address" />*@
+                            <p class="fw-bold">Enter your contact details, so we can serve you in better way!</p>
+                            <div id="dvcontainer-useraddresses"></div>
+                            <button class="btnaddnewadd py-2 px-3 d-block" id="btnAddNewAddress" onclick="showAddNewAddressBlock();">+ Add New Address</button>
+                            <div class="dvadduseraddress px-4 py-3 d-none" id="dvAddNewAddress">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label class="fw-bold mb-1 lbluseraddtitle">Street name</label>
+                                        <input type="text" id="txtStreetName" class="form-control p-2" placeholder="Street name" />
+                                        <span class="text-danger small" id="spnStreetName"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="fw-bold mb-1 lbluseraddtitle">House number</label>
+                                        <input type="text" id="txtHouseNumber" class="form-control p-2" placeholder="House number" />
+                                        <span class="text-danger small" id="spnHouseNumber"></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label class="fw-bold mb-1 lbluseraddtitle">Postal code</label>
+                                        <input type="text" id="confirmZipCode" class="form-control p-2"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="fw-bold mb-1 lbluseraddtitle">City</label>
+                                        @*<select class="form-select p-2" id="selcityfornewadd"></select>*@
+                                        <input type="text" class="form-control p-2" id="selcityfornewadd" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label class="fw-bold mb-1 lbluseraddtitle">Phone number</label>
+                                        <div class="input-group">
+                                            <div class="input-group-text p-2">+49</div>
+                                            <input class="form-control p-2" id="txtMobile" placeholder="Phone number" />
+                                        </div>
+                                        <span class="text-danger small" id="spnMobile"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btnContinueSetupSerProc fw-bold px-4 pt-1 pb-2" id="btnsaveNewUserAddress" onclick="saveUserNewAddress();">Save</button>
+                                        <button class="btnContinueSetupSerProc fw-bold px-4 pt-1 pb-2" onclick="showAddNewAddressBtn();">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="hr-setup-ser" />
+                            <button class="btnContinueSetupSerProc px-4 py-2 float-end" onclick="SaveAddress();">Continue</button>
+                        </div>
+                        <div id="tabContent4" class="tabContent4" style="display:none;">
+
+                            <input type="button" class="btnContinueSetupSerProc px-4 py-2 float-end" onclick="CompleteBooking();" value="submit">
+                        </div>
+
+                    </div>
+            </div>
+            <!--  -->
+
+            <div class="ms-4 accordionFAQ col-md-4" id="dv-payment-summary-container">
+                <div class="dv-payment-summary ">
+                    <div class="head p-3">Payment Summary</div>
+                    <div style="margin: 15px 13px 0 15px;">
+                        <div class="t1 time">01:00 PM</div>
+                        <div class="t2 time">02:00 PM</div>
+                        <div class="t3 time">03:00 PM</div>
+                        <div class="t4 time">04:00 PM</div>
+                        <div class="t5 time">05:00 PM</div>
+                        <div class="t6 time">06:00 PM</div>
+                    </div>
+                    <div class="dv-duration px-3 py-4">
+                        <div class="fw-bold">Duration</div>
+                        <div>
+                            <div class="float-start">Basic</div>
+                            <div class="float-end">3 Hrs</div>
+                        </div>
+                        </br>
+                        <div class="2 hour float-start">Extra</div>
+                        <div class="2 hour float-end ">0.5 hours</div>
+                        <div class="3 hour float-start">Extra</div>
+                        <div class="3 hour float-end">1 hours</div>
+                        <div class="4 hour float-start">Extra</div>
+                        <div class="4 hour float-end">1.5 hours</div>
+                        <div class="5 hour float-start">Extra</div>
+                        <div class="5 hour float-end">2 hours</div>
+                        <hr class="hr-setup-ser" />
+                        <div>
+                            <div class="fw-bold float-start">Total Service Time</div>
+                            <div class="fw-bold float-end 1 hour">3 Hrs</div>
+                            <div class="fw-bold float-end 2 hour">3.5 Hrs</div>
+                            <div class="fw-bold float-end 3 hour">4 Hrs</div>
+                            <div class="fw-bold float-end 4 hour">4.5 Hrs</div>
+                            <div class="fw-bold float-end 5 hour">5 Hrs</div>
+                        </div>
+                    </div>
+                    <hr class="hr-setup-ser" />
+                    <div class="dv-percleaning px-3 pb-4">
+                        <div>
+                            <div class="float-start">Per cleaning</div>
+                            <div class="float-end">60, 00 &euro;</div>
+                            <br />
+                            <div class="2 hour float-start">Extra</div>
+                            <div class="2 hour float-end ">10, 00 &euro;</div>
+                            <div class="3 hour float-start">Extra</div>
+                            <div class="3 hour float-end">20, 00 &euro;</div>
+                            <div class="4 hour float-start">Extra</div>
+                            <div class="4 hour float-end">30, 00 &euro;</div>
+                            <div class="5 hour float-start">Extra</div>
+                            <div class="5 hour float-end">40, 00 &euro;</div>
+                        </div>
+                    </div>
+                    <hr class="hr-setup-ser" />
+                    <div class="dv-percleaning px-3 pb-5">
+                        <div>
+                            <div class="fw-bold float-start fs2 ">Total Payment</div>
+                            <div class="fw-bold float-end fs2 1 hour">60, 00 &euro;</div>
+                            <div class="fw-bold float-end fs2 2 hour">70, 00 &euro;</div>
+                            <div class="fw-bold float-end fs2 3 hour">80, 00 &euro;</div>
+                            <div class="fw-bold float-end fs2 4 hour">90, 00 &euro;</div>
+                            <div class="fw-bold float-end fs2 5 hour">100, 00 &euro;</div>
+                        </div>
+                    </div>
+                    <div class="foot py-2 px-3"><span class="pe-2"><img src="~/img/smiley.png"></span>See what is always included</div>
+                </div>
+                <p class="text-center pt-5 fw-bold ffc fs3">Questions?</p>
+                <div class="accordion accordion-flush mb-3" id="accordionFAQ">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                Whats included in cleaning?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">Answer #1</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                Which Helperland professional will come to my place?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">Answer #2</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                Can I skip or reschdule bookings?
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFAQ">
+                            <div class="accordion-body">Answer #3</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="fw-bold formorehelp fs2">For more help</a>
+            </div>
+        </div>
+
+    </main>
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a href="index.html" title="Helper Hand">
+                            <img src="~/img/site-logo.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a asp-action="index" title="Home">Home</a>
+                            </li>
+                            <li>
+                                <a asp-action="aboutus" title="About">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a asp-action="faq" title="FAQs">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="~/img/fb.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="~/img/insta.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p> ©2018Helperland All rights reserved.Terms and Conditions  | <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- script -->
+<!-- <div id="dv-schedule-plan">
+    <p class="fw-bold">Select number of rooms and bath</p>
+    <div class="sel-rooms-baths me-2">
+        <select class="form-select">
+            <option value="1">1 bed</option>
+            <option value="2">2 bed</option>
+            <option value="3">3 bed</option>
+        </select>
+    </div>
+    <div class="sel-rooms-baths mb-4">
+        <select class="form-select">
+            <option value="1">1 bath</option>
+            <option value="2">2 bath</option>
+            <option value="3">3 bath</option>
+        </select>
+    </div>
+    <hr class="hr-setup-ser"/>
+    <div class="row">
+        <div class="col-md-6 mt-3">
+            <p class="fw-bold">When do you need the cleaner?</p>
+            <input type="date" id="" class="dateForService calender-icon form-control me-2 mb-2">
+            <div class="sel-timeforser mb-4">
+                <select class="form-select">
+                    <option value="1">01:00 PM</option>
+                    <option value="2">02:00 PM</option>
+                    <option value="3">03:00 PM</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            <p class="fw-bold">How long do you need the cleaner to stay?</p>
+            <div class="sel-rooms-baths mb-4">
+                <select class="form-select">
+                    <option value="1">3.0 Hrs</option>
+                    <option value="2">4.0 Hrs</option>
+                    <option value="3">5.0 Hrs</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <hr class="hr-setup-ser"/>
+    <p class="fw-bold">Extra services</p>
+    <div class="dv-setupser-extrasers-container mb-5">
+        <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerCabinet();">
+            <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-cabinet">
+                <img src="~/img/3.png" id="ser-cabinet">
+            </div>
+            <div class="fs1 ser-name">Inside cabinets</div>
+        </div>
+        <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerFridge();">
+            <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-fridge">
+                <img src="~/img/5.png" id="ser-fridge">
+            </div>
+            <div class="fs1 ser-name">Inside fridge</div>
+        </div>
+        <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerOven();">
+            <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-oven">
+                <img src="~/img/4.png" id="ser-oven">
+            </div>
+            <div class="fs1 ser-name">Inside oven</div>
+        </div>
+        <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerLaundry();">
+            <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-laundry">
+                <img src="~/img/2.png" id="ser-laundry">
+            </div>
+            <div class="fs1 ser-name">Laundry wash & dry</div>
+        </div>
+        <div class="dv-setupsers-extra-services m-2" onclick="selectUnselectSerWindows();">
+            <div class="setupser-extrasers d-flex justify-content-center align-items-center" id="dv-ser-windows">
+                <img src="~/img/1.png" id="ser-windows">
+            </div>
+            <div class="fs1 ser-name">Interior windows</div>
+        </div>
+    </div>
+    <hr class="hr-setup-ser"/>
+    <p class="fw-bold">Comments</p>
+    <textarea class="form-control"></textarea>
+    <div class="my-3">
+        <input type="checkbox" class="form-check-input" id="cbhavePets">
+        <labe for="cbhavePets" class="form-check-label ms-1">I have pets at home</labe>
+    </div>
+    <hr class="hr-setup-ser"/>
+    <button class="btnContinueSetupSerProc px-4 py-2 float-end">Continue</button>
+</div> -->
+<!-- <div id="dv-setup-service">
+    <p class="fw-bold">Select your Postal Code</p>
+    <div class="row">
+        <div class="col-md-4 pb-2">
+            <select class="form-select">
+                <option value="0">Postal Code</option>
+                <option value="1">Postal Code #1</option>
+                <option value="2">Postal Code #2</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button class="btnContinueSetupSerProc px-4 py-2">Check Availability</button>
+            <input type="button" value="Check Availability" class="btnContinueSetupSerProc px-4 py-2" onclick="SearchZipCode();">
+        </div>
+    </div>
+</div> -->

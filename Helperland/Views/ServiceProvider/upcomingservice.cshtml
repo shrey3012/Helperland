@@ -1,0 +1,411 @@
+﻿@{
+    ViewData["Title"] = "Upcoming Service";
+    @*Layout = "_ServiceLayout";*@
+}
+
+<div class="dvWelcome d-flex justify-content-center align-items-center">
+    Welcome,&nbsp;<span id="proname" class="fw-bold">@ViewBag.UserName</span>
+</div>
+<section class="container my-4 d-flex justify-content-center">
+    <div class="dv-ser-pro-menu me-3">
+        <a id="lnk-dashboard" href="#" onclick="showDashboard('lnk-dashboard');">Dashboard</a>
+        <a id="lnk-new-ser-req" href="#" onclick="showNewServiceRequests('lnk-new-ser-req');">New Service Requests</a>
+        <a id="lnk-upcoming-services" href="#" onclick="showUpcomingServices('lnk-upcoming-services');">Upcoming Services</a>
+        <a id="lnk-ser-schedule" href="#" onclick="showServiceSchedule('lnk-ser-schedule');">Service Schedule</a>
+        <a id="lnk-ser-history" href="#" onclick="showServiceHistory('lnk-ser-history');">Service History</a>
+        <a id="lnk-myratings" href="#" onclick="showMyRatings('lnk-myratings');">My Ratings</a>
+        <a id="lnk-block-cus" href="#" onclick="showBlockCustomer('lnk-block-cus');">Block Customer</a>
+    </div>
+    <div id="sidebarlink_container" class="ser-provider-submenu-list">
+        <div id="dv-dashboard">Dashboard</div>
+        <div id="dv-new-ser-req">New Service Requests</div>
+        <div id="dv-upcoming-services">
+            <!-- Data table start -->
+            <table id="tblUpcomingServices" class="table-data mb-3" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Service ID</th>
+                        <th>Service data</th>
+                        <th>Customer details</th>
+                        <th>Distance</th>
+                        <th data-orderable="false">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>323436</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
+                        </td>
+                        <td>
+                            <div>Manali Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>15 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323437</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Nida Mirza</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>18 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323434</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Drashti Bhavsar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
+                        </td>
+                        <td>13 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323439</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Bhavin Shah</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
+                        </td>
+                        <td>20 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323440</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Deep Patel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
+                        </td>
+                        <td>25 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323443</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Joyal Suthar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
+                        </td>
+                        <td>11 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323444</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
+                        </td>
+                        <td>
+                            <div>Shivani Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
+                        </td>
+                        <td>14 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+
+                    <tr>
+                        <td>323436</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
+                        </td>
+                        <td>
+                            <div>Manali Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>15 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323437</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Nida Mirza</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>18 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323434</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Drashti Bhavsar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
+                        </td>
+                        <td>13 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323439</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Bhavin Shah</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
+                        </td>
+                        <td>20 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323440</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Deep Patel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
+                        </td>
+                        <td>25 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323443</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Joyal Suthar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
+                        </td>
+                        <td>11 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323444</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
+                        </td>
+                        <td>
+                            <div>Shivani Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
+                        </td>
+                        <td>14 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323436</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
+                        </td>
+                        <td>
+                            <div>Manali Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>15 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323437</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Nida Mirza</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>18 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323434</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Drashti Bhavsar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
+                        </td>
+                        <td>13 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323439</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Bhavin Shah</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
+                        </td>
+                        <td>20 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323440</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Deep Patel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
+                        </td>
+                        <td>25 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323443</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Joyal Suthar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
+                        </td>
+                        <td>11 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323444</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
+                        </td>
+                        <td>
+                            <div>Shivani Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
+                        </td>
+                        <td>14 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+
+                    <tr>
+                        <td>323436</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
+                        </td>
+                        <td>
+                            <div>Manali Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>15 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323437</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Nida Mirza</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
+                        </td>
+                        <td>18 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323434</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Drashti Bhavsar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
+                        </td>
+                        <td>13 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323439</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Bhavin Shah</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
+                        </td>
+                        <td>20 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323440</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Deep Patel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
+                        </td>
+                        <td>25 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323443</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
+                        </td>
+                        <td>
+                            <div>Joyal Suthar</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
+                        </td>
+                        <td>11 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                    <tr>
+                        <td>323444</td>
+                        <td>
+                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
+                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
+                        </td>
+                        <td>
+                            <div>Shivani Gohel</div>
+                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
+                        </td>
+                        <td>14 km</td>
+                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Data table end -->
+        </div>
+        <div id="dv-ser-schedule">Service Schedule</div>
+        <div id="dv-ser-history">Service History</div>
+        <div id="dv-myratings">My Ratings</div>
+        <div id="dv-block-cus">Block Customer</div>
+    </div>
+    <input type="hidden" id="hdnActiveMenu" value="">
+</section>

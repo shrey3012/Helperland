@@ -1,0 +1,259 @@
+﻿@model ContactUsViewModel
+
+@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "_LoginView";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland | Contact</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel=stylesheet>
+    <link rel='stylesheet' href="css/contactstyle.css">
+    <link href="~/css/contactstyle.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a asp-action="Index" title="Helper hand">
+                    <img src="~/img/site-logo.png" alt="Helper hand logo" class="logo">
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" asp-action="BookService">Book now</a></li>
+                            <li class="my-2 mx-2"><a class="navborder py-2 px-3" asp-action="Prices">Prices & services</a></li>
+                            <li class="my-2 mx-2"><a class="py-2 px-3" href="#">Warranty</a></li>
+                            <li class="my-2 mx-2"><a class="py-2 px-3" href="#">Blog</a></li>
+                            <li class="my-2 me-2"><a class="py-2 px-3" asp-action="Contactus">Contact</a></li>
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" data-bs-toggle="modal" href="#exampleModalToggle" title="Login">Login</a></li>
+                            <li class="my-2 mx-2"><a class="navblue py-2 px-3" asp-controller="serviceprovider" asp-action="becomeaprovider">Become a Helper</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <img src="~/img/group-16_2.png" class="img-fluid">
+        <section class="contactus">
+            <div class="container">
+                <h1 class="text-center">Contact Us</h1>
+
+
+                <table class="center">
+                    <tr class="align-items-center">
+                        <td width="65px"><hr class="line"></td>
+                        <td width="40px" class="text-center"><img src="~/img/star.png.png"></td>
+                        <td width="65px"><hr class="line"></td>
+                    </tr>
+                </table>
+
+                <div class="c-logo">
+
+                    <div class="row d-flex justify-content-center lo-wrapper">
+                        <div class="col-lg-4 col-sm-6 text-center">
+                            <img alt="Address" src="~/img/location.png">
+                            <p>1111 Lorem ipsum text 100</br> Lorem ipsum AB</p>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 text-center">
+                            <img alt="Phone" src="~/img/phone-call.png">
+                            <p>+49 (228) 28693320</br>+49 (40) 123 56 7890</p>
+                        </div>
+                        <div class="col-sm-6 col-lg-4 text-center lo-wrapper1">
+                            <img alt="Mail" src="~/img/email.png">
+                            <p>info@helperland.com</p>
+                        </div>
+                        <div class="edge"></div>
+
+                    </div>
+                </div>
+        </section>
+
+        <section class="get-in-touch">
+            <div class="container">
+                <h2 class="text-center">Get in Touch with us</h2>
+                <form class="form" asp-controller="home" asp-action="contactus" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input id="txtFirstName" type="text" asp-for="firstname" class="form-control" placeholder="First name" autocomplete="off">
+                                <span asp-validation-for="firstname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="text" asp-for="lastname" class="form-control" placeholder="Last name" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input asp-for="mobile" id="txtMobile" class="form-control" placeholder="Mobile number" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type="number" maxlength="10" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input type="email" id="txtEmail" asp-for="email" class="form-control" placeholder="Email" autocomplete="off" maxlength="200">
+                                <span asp-validation-for="email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <select class="form-select" formcontrolname="SubjectTypeId" asp-for="subject">
+                                    <option value="1">
+                                        A
+                                    </option>
+                                    <option value="2">
+                                        B
+                                    </option>
+                                    <option value="7">
+                                        C
+                                    </option>
+                                    <option value="9">
+                                        D
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <textarea class="form-control" asp-for="message" id="txtareaMsg" rows="5" placeholder="Message"></textarea>
+                                <span asp-validation-for="message" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="contactusAttachment">Attachment</label>
+                                <input type="file" asp-for="attachment" id="contactusAttachment" value="" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-sm-12 text-center">
+                        <button class="submit btn shadow-none" type="submit">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+            </div>
+        </section>
+
+        <!-- <div class="map ">-->
+
+
+
+        <div class="responsive-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6980502384117!2d72.49824711489082!3d23.034856384946774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8352e403437b%3A0xdc9d4dae36889fb9!2sTatvaSoft!5e0!3m2!1sen!2sin!4v1639912052211!5m2!1sen!2sin" width="1560" height="370" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a asp-action="Index" title="Helper Hand">
+                            <img src="~/img/site-logo.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a asp-action="Index" title="Home">Home</a>
+                            </li>
+                            <li>
+                                <a asp-action="Aboutus" title="About">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a asp-action="Faq" title="FAQs">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="~/img/fb.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="~/img/insta.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p> ©2018Helperland All rights reserved.Terms and Conditions  | <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  
+</body>
+
+</html>

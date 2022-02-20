@@ -1,0 +1,287 @@
+﻿@model SignupViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland | Become a Helper</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../img/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../img/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../img/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel=stylesheet>
+    <link href="~/css/becomeprostyle.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header -->
+    <header class="site-header">
+        <div class="header-wrapper d-flex justify-content-between align-items-center">
+            <a asp-action="Index" title="Helper hand" class="logo-block">
+                <img src="~/img/site-logo.png" alt="Helper hand logo">
+            </a>
+            <div class="header-right-block">
+                <div class="right-block-inner d-flex align-items-center">
+                    <nav class="navbar navbar-expand-lg align-items-center">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link border-btn" asp-action="BookService" title="Book a Cleaner">
+                                        Book a
+                                        Cleaner
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Price" title="Prices">Prices</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" title="Our Guarantee">Our Guarantee</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" title="Blog">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-action="Contact" title="Contact us">Contact us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link border-btn" data-bs-toggle="modal" href="#exampleModalToggle" title="Login">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link border-btn" asp-action="BecomeSP" title="Become a Helper">
+                                        Become a
+                                        Helper
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="custom-dropdown">
+                        <select class="country-dropdown select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <option value="Australia" data-image="../img/australia.svg" data-select2-id="3">Australia</option>
+                            <option value="United States" data-image="../img/united-states.svg">United States</option>
+                            <option value="India" data-image="../img/india.svg">India</option>
+                        </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: 116.8px;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="banner" style="background-image: url(../img/cover.png);">
+            <div class="container">
+                <div class="sq center">
+                    <form id="frmRegProvider" method="post" asp-controller="ServiceProvider" asp-action="becomeaprovider">
+                        <div class="form-inner">
+                            <div class="col-md-11 ms-3 mb-0 alert alert-success alert-dismissible fade @(TempData["msg"]==null?"d-none":"show")" role="alert">
+                                @TempData["msg"]
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <div class="row">
+                                <p class="text-center">Register now !</p>
+                            </div>
+                            <div class="form">
+                                <input type="text" id="txtFirstName" asp-for="firstname" maxlength="100" class="form-control" placeholder="First name">
+                                <span asp-validation-for="firstname" class="text-danger"></span>
+                            </div>
+                            <div class="form">
+                                <input type="text" id="txtLastName" asp-for="lastname" maxlength="100" class="form-control" placeholder="Last name">
+                                <span asp-validation-for="lastname" class="text-danger"></span>
+                            </div>
+                            <div class="form">
+                                <input type="email" id="txtEmail" asp-for="email" maxlength="100" autocomplete="off" class="form-control" placeholder="Email Address">
+                                <span asp-validation-for="email" class="text-danger"></span>
+                            </div>
+                            <div class="form">
+                                <input type="text" id="txtPhoneNumber" asp-for="mobile" maxlength="20" autocomplete="off" class="form-control inputtext ff" placeholder="Phone Number">
+                                <span asp-validation-for="mobile" class="text-danger"></span>
+                            </div>
+                            <div class="form">
+                                <input type="password" id="pwd" asp-for="password" maxlength="100" autocomplete="off" class="form-control inputtext ff" placeholder="Password">
+                                <span asp-validation-for="password" class="text-danger"></span>
+                            </div>
+                            <div class="form">
+                                <input type="password" id="confirmpwd" asp-for="confirmpassword" maxlength="100" class="form-control" placeholder="Confirm Password">
+                                <span asp-validation-for="confirmpassword" class="text-danger"></span>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input formcontrolname="NewsletterSubscription" type="checkbox">
+                                    <span>Send me newsletters from Helperland </span>
+                                </label>
+                            </div>
+                            <div class="checkbox2">
+                                <label>
+                                    <input formcontrolname="NewsletterSubscription" type="checkbox" >
+                                    <span>I accept terms and conditions & privacy policy</span>
+                                </label>
+                            </div>
+                            <form action="https://api.form-data.com/f/bqtxth46icif4r4ot1p5qn" method="post">
+                                <div class="g-recaptcha"
+                                     data-sitekey="6Lel4Z4UAAAAAOa8LO1Q9mqKRUiMYl_00o5mXJrR"></div>
+                            </form>
+                            <div class="button text-center">
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" form="frmRegProvider" class="btnRegPro text-center ff pt-2 pe-4 pb-2 ps-4">Get Started&nbsp;&nbsp;<img src="~/img/right-arrow.png"></button>
+                                    </div>
+                            </div>
+
+
+                        </div>
+                        </form>
+                </div>
+                <div class="scroll-link-wrapper">
+                    <a href="#howitwork" title="Scroll Down" class="scroll-link">
+                        <img src="~/img/white-down-arrow.png" alt="Scroll-down">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-work" id="howitwork">
+            <div class="container">
+                <h1 class="text-center">How it works</h1>
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                        <ul class="how-it-works-listing clearfix">
+                            <li class="animatedParent animateOnce">
+                                <img alt="Register yourself" class="main-img animated fadeInUp go" src="~/img/group-18-2.png">
+                                <div class="content-outer animated fadeInUp go" data-id="2">
+                                    <h4>Register yourself</h4>
+                                    <p>
+                                        Provide your basic information to register
+                                        yourself as a service provider.
+                                    </p>
+                                    <span>
+                                        Read More
+                                        <em>
+                                            <img src="~/img/shape-2-copy-3.png">
+                                        </em>
+                                    </span>
+                                </div>
+                            </li>
+
+                            <li class="animatedParent animateOnce">
+                                <img alt="Get service requests" class="main-img animated fadeInUp go" src="~/img/group-18.1.png">
+                                <div class="content-outer animated fadeInUp go" data-id="2">
+                                    <h4>Get service requests</h4>
+                                    <p>
+                                        You will get service requests from
+                                        customes depend on service area and profile.
+                                    </p>
+                                    <span>
+                                        Read More
+                                        <em>
+                                            <img src="~/img/shape-2-copy-3.png">
+                                        </em>
+                                    </span>
+                                </div>
+                            </li>
+
+                            <li class="animatedParent animateOnce">
+                                <img alt="Complete service" class="main-img animated fadeInUp go" src="~/img/group-18-3.png">
+                                <div class="content-outer animated fadeInUp go" data-id="2">
+                                    <h4>Complete service</h4>
+                                    <p>
+                                        Accept service requests from your customers
+                                        and complete your work.
+                                    </p>
+                                    <span>
+                                        Read More
+                                        <em>
+                                            <img src="~/img/shape-2-copy-3.png">
+                                        </em>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-2 footer-widget">
+                            <a asp-action="Index" title="Helper Hand">
+                                <img src="~/img/site-logo.png" alt="Helper Hand">
+                            </a>
+                        </div>
+                        <div class="col-lg-8 footer-widget">
+                            <ul class="footer-navigation d-flex justify-content-center">
+                                <li>
+                                    <a asp-action="Index" title="Home">Home</a>
+                                </li>
+                                <li>
+                                    <a asp-action="About" title="About">About</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Testimonials">Testimonials</a>
+                                </li>
+                                <li>
+                                    <a asp-action="Faq" title="FAQs">FAQs</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Insurance Policy">Insurance Policy</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Impressum">Impressum</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 footer-widget">
+                            <ul class="social-media-list d-flex justify-content-end">
+                                <li>
+                                    <a href="#" target="_blank" title="Facebook">
+                                        <img src="~/img/fb.png" alt="Facebook">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank" title="Instagram">
+                                        <img src="~/img/insta.png" alt="Instagram">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container text-center">
+                    <p> ©2018Helperland All rights reserved.Terms and Conditions  | <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+
+                </div>
+            </div>
+        </footer>
+
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="~/js/general2.js"></script>
+</body>
+</html>

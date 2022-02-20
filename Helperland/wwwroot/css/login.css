@@ -1,0 +1,38 @@
+﻿/* login Popup */
+.modal-content {
+    max-width: 360px;
+}
+
+.modal a {
+    color: #1d7a8c;
+    text-decoration: none !important;
+}
+
+.modal-header {
+    border-style: none;
+}
+
+.modal-footer {
+    border-style: none;
+    justify-content: center;
+}
+
+.modal-content .modal-title {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #4F4F4F;
+    margin-top: 5px;
+}
+
+.checkbox {
+    color: #4f4f4f;
+    font-size: 14px;
+}
+
+.modal-body .btn {
+    min-width: 320px;
+    background-color: #1d7a8c;
+    color: #e4ebf0;
+    border-radius: 30px;
+}
