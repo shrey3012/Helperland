@@ -6044,11 +6044,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\shrey\\Downloads\\Helperland\\Helperland\\Helperland.csproj",
+      "projectUniqueName": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland\\Helperland.csproj",
       "projectName": "Helperland",
-      "projectPath": "C:\\Users\\shrey\\Downloads\\Helperland\\Helperland\\Helperland.csproj",
+      "projectPath": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland\\Helperland.csproj",
       "packagesPath": "C:\\Users\\shrey\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shrey\\Downloads\\Helperland\\Helperland\\obj\\",
+      "outputPath": "C:\\Users\\shrey\\OneDrive\\Documents\\GitHub\\Helperland\\Helperland\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\shrey\\AppData\\Roaming\\NuGet\\NuGet.Config",

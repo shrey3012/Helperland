@@ -406,8 +406,8 @@ namespace Helperland.Controllers
             };
             helperLandContext.Add(userAddress);
             helperLandContext.SaveChanges();
-
-            return Json(userAddress);
+            var result = userAddress;
+            return Json(result);
         }
         
     }
