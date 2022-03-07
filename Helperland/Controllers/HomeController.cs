@@ -19,7 +19,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
-
+using Helperland.Repository;
+using Newtonsoft.Json;
 
 namespace Helperland.Controllers
 {
@@ -35,18 +36,26 @@ namespace Helperland.Controllers
         private User _user;
         private object _helperlandContext;
         private object helperlandContext;
+        private readonly IUserAddressRepository userAddressRepository;
+        private readonly IServiceRequestAddressRepository serviceRequestAddressRepository;
 
         public object Session { get; private set; }
 
-        public HomeController(ILogger<HomeController> logger, HelperLandContext helperLandContext,
-                                   IHostingEnvironment hostingEnvironment, IConfiguration configuration,
-                                   IDataProtectionProvider dataProtectionProvider)
+        public HomeController(ILogger<HomeController> logger,
+                              HelperLandContext helperLandContext,
+                              IUserAddressRepository userAddressRepository,
+                              IHostingEnvironment hostingEnvironment,
+                              IConfiguration configuration,
+                               IServiceRequestAddressRepository serviceRequestAddressRepository,
+                              IDataProtectionProvider dataProtectionProvider)
         {
             _logger = logger;
             this.helperLandContext = helperLandContext;
             this.configuration = configuration;
             this._hostingEnvironment = hostingEnvironment;
             this._dataProtectionProvider = dataProtectionProvider;
+            this.userAddressRepository = userAddressRepository;
+            this.serviceRequestAddressRepository = serviceRequestAddressRepository;
         }
 
         public async Task<IActionResult> index()
@@ -56,6 +65,10 @@ namespace Helperland.Controllers
             if (EmailId != null && Password != null)
             {
                 User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == EmailId && e.Password == Password);
+                /*if (HttpContext.Request.Cookies["EmailId"] != null && HttpContext.Request.Cookies["Password"] != null)
+                {
+                    User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == HttpContext.Request.Cookies["EmailId"] && e.Password == HttpContext.Request.Cookies["Password"]);*/
+
                 if (user != null && user.IsApproved == true)
                 {
                     HttpContext.Session.SetInt32("UserType", user.UserTypeId);
@@ -66,7 +79,7 @@ namespace Helperland.Controllers
                         return RedirectToAction("upcomingservice", "serviceprovider");
                     else
                         return RedirectToAction("index", "admin");
-                    //userTypewiseRedirection(user.UserTypeId, user.FirstName);
+                  
                 }
                 return View();
             }
@@ -110,11 +123,13 @@ namespace Helperland.Controllers
                     Subject = model.subject,
                     PhoneNumber = model.mobile,
                     Message = model.message,
-                    UploadFileName = filename
+                    UploadFileName = filename,
+                    CreatedOn = DateTime.Now,
                 };
                 helperLandContext.Add(Newcontact);
                 helperLandContext.SaveChanges();
-                /*EmailModel emailmodel = new EmailModel
+                TempData["msg"] = "Your query has been submitted successfully. Our helpdesk team will contact you soon!";
+                EmailModel emailmodel = new EmailModel
                 {
                     From = "",
                     To = "",
@@ -124,7 +139,7 @@ namespace Helperland.Controllers
                 };
                 MailHelper mailhelp = new MailHelper(configuration);
 
-                mailhelp.SendContectUs(emailmodel);*/
+                mailhelp.SendContectUs(emailmodel);
                 return RedirectToAction();
             }
             return View();
@@ -138,58 +153,40 @@ namespace Helperland.Controllers
             if (HttpContext.Session.GetInt32("UserType") == (int)UserTypeIdEnum.Customer)
             {
                 ViewBag.UserName = HttpContext.Session.GetString("UserName");
+                var user = HttpContext.Session.GetInt32("UserId");
+
+                var data = helperLandContext.ServiceRequests.ToList().Where(x => x.UserId == user);
                 if (HttpContext.Session.GetInt32("redirectToBookService") == 1)
                     return RedirectToAction("bookservice", "home");
                 else
-                    return View();
+                    return View(data);
             }
             else
                 return RedirectToAction("index", "home");
         }
+        
         public IActionResult bookservice()
         {
             if (HttpContext.Session.GetInt32("UserType") == null)
             {
-                HttpContext.Session.SetInt32("redirectToBookService", 1);
+                
                 ViewBag.openLoginModel = true;
+                HttpContext.Session.SetInt32("redirectToBookService", 1);
                 return View("~/Views/home/index.cshtml");
             }
             else
             {
                 HttpContext.Session.GetInt32("UserId");
+                HttpContext.Session.GetString("UserName");
                 return View();
             } 
         }
-        /* [HttpPost]
-         public ActionResult booking([FromBody] ServiceRequest booking)
-         {
-             if (booking == null)
-                 return Json(new SingeEntity<ServiceRequest>() { Result = null, Status = "ERROR", ErrorMessage = "Error in deserializing submitted data into booking object" }
-                     , new System.Text.Json.JsonSerializerOptions()
-                     {
-                         PropertyNameCaseInsensitive = false
-                     });
-             else
-             {
-                 var result = new System.Dynamic.ExpandoObject();
-                 return Json(new SingeEntity<ServiceRequest>() { Result = booking, Status = "OK" }
-                     , new System.Text.Json.JsonSerializerOptions()
-                     {
-                         PropertyNameCaseInsensitive = false
-                     });
-             }
-         }
-         public class SingeEntity<T> where T : class
-         {
-             public T Result { get; set; }
-             public string Status { get; set; }
-             public string ErrorMessage { get; set; }
-         }*/
+        
 
         [HttpPost]
         public JsonResult checkAvailabilitySP(string zipcode)
         {
-            var isExist = helperLandContext.Users.Where(z => z.ZipCode == zipcode).Count();
+            var isExist = helperLandContext.Zipcodes.Where(z => z.ZipcodeValue == zipcode).Count();
             bool result = false;
             if (isExist > 0)
                 result = true;
@@ -227,7 +224,7 @@ namespace Helperland.Controllers
                     };
                     helperLandContext.Add(user);
                     helperLandContext.SaveChanges();
-                    TempData["msg"] = "Account Created Successfully!!";
+                    TempData["msg"] = "Account created Successfully";
                     return RedirectToAction("customersignup", "home");
                 }
             }
@@ -238,7 +235,7 @@ namespace Helperland.Controllers
             return View();
         }
 
-      /*  [HttpPost]
+        [HttpPost]
         [HttpGet]
         public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
         {
@@ -247,7 +244,7 @@ namespace Helperland.Controllers
                 return Json(true);
             else
                 return Json($"This Email {email} is Already Registered!!");
-        }*/
+        }
 
         [HttpPost]
         [Route("home/index")]
@@ -384,6 +381,66 @@ namespace Helperland.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public JsonResult getAllUserAddressesbyPostalcode(string postalcode)
+        {
+            if (HttpContext.Request.Cookies["UserId"] != null)
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(Int32.Parse(HttpContext.Request.Cookies["UserId"])) && a.PostalCode.Equals(postalcode)).ToList());
+            else
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(HttpContext.Session.GetInt32("UserId")) && a.PostalCode.Equals(postalcode)).ToList());
+        }
+        [HttpGet]
+        public JsonResult getAllUserAddresses()
+        {
+            if (HttpContext.Request.Cookies["UserId"] != null)
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(Int32.Parse(HttpContext.Request.Cookies["UserId"])) ));
+            else
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(HttpContext.Session.GetInt32("UserId")) ));
+        }
+
+        public JsonResult getUserDetails()
+        {
+            var user = HttpContext.Session.GetInt32("UserId");
+            var data = helperLandContext.Users.Where(x => x.UserId == user);
+            return Json(data);
+        }
+        [HttpPost]
+        public JsonResult changePassword([FromBody] ChangePwdViewModel model)
+        {
+            var user = HttpContext.Session.GetInt32("UserId");
+            _user = helperLandContext.Users.Where(x => x.UserId == user).AsNoTracking().First();
+            if (ModelState.IsValid)
+            {
+                if (_user.Password == model.password)
+                {
+                    _user.Password = model.newPassword;
+                    helperLandContext.Users.Update(_user);
+                    helperLandContext.SaveChanges();
+                }
+                else
+                {
+                    TempData["errMsg"] = "Invalid Password";
+                }
+            }
+            
+
+            return Json(model);
+        }
+        [HttpPost]
+        public JsonResult updateUser([FromBody] UpdateUserViewModel model)
+        {
+            var user = HttpContext.Session.GetInt32("UserId");
+            _user = helperLandContext.Users.Where(x => x.UserId == user).AsNoTracking().First();
+            _user.FirstName = model.firstname;
+            _user.LastName = model.lastname;
+            _user.Mobile = model.mobile;
+            
+            helperLandContext.Users.Update(_user);
+            helperLandContext.SaveChanges();
+            
+            return Json(model);
+        }
         [HttpPost]
         public JsonResult addNewAddress([FromBody] UserAddressViewModel userAddressViewModel)
         {
@@ -404,12 +461,66 @@ namespace Helperland.Controllers
                 IsDefault = true,
                 IsDeleted = false
             };
-            helperLandContext.Add(userAddress);
+            /*helperLandContext.Add(userAddress);
             helperLandContext.SaveChanges();
-            var result = userAddress;
+            var result = userAddress;*/
+            var result = userAddressRepository.AddUserAddress(userAddress);
             return Json(result);
         }
-        
+
+        [HttpPost]
+        public JsonResult Completebooking([FromBody] ServiceRequestViewModel model)
+        {
+            int userid = 0;
+            if (HttpContext.Request.Cookies["UserId"] != null)
+                userid = Int32.Parse(HttpContext.Request.Cookies["UserId"]);
+            else
+                userid = (int)HttpContext.Session.GetInt32("UserId");
+            ServiceRequest serviceRequest = new ServiceRequest
+            {
+                UserId = userid,
+                ServiceId = 0,
+                ServiceStartDate = Convert.ToDateTime(model.ServiceStartDate.ToString() + " " + model.ServiceStarttime.ToString()),
+                ZipCode = model.ZipCode.ToString().Trim(),
+                ServiceHourlyRate = 30,
+                ServiceHours = 3,
+                ExtraHours = 0,
+                SubTotal = model.SubTotal,
+                TotalCost = model.TotalCost,
+                Comments = model.Comments.ToString(),
+                PaymentDone = true,
+                PaymentDue = false,
+                ServiceProviderId = 1,
+                HasPets = model.HasPets,
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                // ModifiedBy = model.UserId,
+                RecordVersion = Guid.NewGuid(),
+                Distance = 25,
+            };
+            helperLandContext.Add(serviceRequest);
+            helperLandContext.SaveChanges();
+            model.ServiceRequestID = serviceRequest.ServiceRequestId;
+
+            UserAddress userAddress = userAddressRepository.GetAddressByAddressId(Convert.ToInt32(model.UserAddressID));
+            ServiceRequestAddress serviceRequestAddress = new ServiceRequestAddress
+            {
+                ServiceRequestId = serviceRequest.ServiceRequestId,
+                AddressLine1 = userAddress.AddressLine1,
+                AddressLine2 = userAddress.AddressLine2,
+                City = userAddress.City,
+                State = userAddress.State,
+                PostalCode = userAddress.PostalCode,
+                Mobile = userAddress.Mobile,
+                Email = userAddress.Email
+            };
+            serviceRequestAddressRepository.saveServiceRequestAddress(serviceRequestAddress);
+            return Json(model);
+            
+            
+        }
+
+
     }
 
     

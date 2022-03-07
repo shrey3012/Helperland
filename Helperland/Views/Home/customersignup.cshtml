@@ -81,13 +81,13 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <input type="text" id="txtFirstName" asp-for="firstname" maxlength="100" class="form-control" placeholder="First name">
+                                <input type="text" id="txtFirstName" asp-for="firstname" maxlength="100" class="form-control" placeholder="First name" autocomplete="off">
                                 <span asp-validation-for="firstname" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <input type="text" id="txtLastName" asp-for="lastname" maxlength="100" class="form-control" placeholder="Last name">
+                                <input type="text" id="txtLastName" asp-for="lastname" maxlength="100" class="form-control" placeholder="Last name" autocomplete="off">
                                 <span asp-validation-for="lastname" class="text-danger"></span>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <input type="email" id="txtEmail" asp-for="email" maxlength="100" class="form-control" placeholder="Email">
+                                <input type="email" id="txtEmail" asp-for="email" maxlength="100" class="form-control" placeholder="Email" autocomplete="off" autofill="off" >
                                 <span asp-validation-for="email" class="text-danger"></span>
                             </div>
 
@@ -111,7 +111,7 @@
                     </div>
                     <div class="row " formgroupname="Password">
                         <div class="col-sm-6">
-                            <input type="password" id="pwd" asp-for="password" maxlength="100" class="form-control" placeholder="Password">
+                            <input type="password" id="pwd" asp-for="password" maxlength="100" class="form-control" placeholder="Password" autocomplete="off">
                             <span asp-validation-for="password" class="text-danger"></span>
                         </div>
                         <div class="col-sm-6">
@@ -126,7 +126,7 @@
                         <div class="col-sm-12">
                             <div class="checkbox">
                                 <label>
-                                    <input formcontrolname="IAgreeTermsCondition" type="checkbox" class="ng-untouched ng-pristine ng-valid">
+                                    <input formcontrolname="IAgreeTermsCondition" type="checkbox" required>
                                     <span>
                                         I agree with the
                                         <a data-toggle="modal" href="#termsAndConditions" title="Terms and Conditions">terms and conditions</a> of Helperland.
@@ -141,7 +141,7 @@
                         <div class="col-sm-12">
                             <div class="checkbox">
                                 <label>
-                                    <input formcontrolname="IAgreePrivacyPolicy" type="checkbox" class="ng-untouched ng-pristine ng-valid">
+                                    <input formcontrolname="IAgreePrivacyPolicy" type="checkbox" required>
                                     <span>
                                         I have read the
                                         <a data-toggle="modal" href="#privacy-policy-modal" title="privacy policy">privacy policy</a> .

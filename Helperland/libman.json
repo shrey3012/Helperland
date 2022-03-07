@@ -22,5 +22,11 @@
       "library": "jquery-validate@1.19.3",
       "destination": "wwwroot/lib/jquery-validate/"
     }
-  ]
+    
+  ,
+{
+  "library": "jquery@3.6.0",
+  "destination": "wwwroot/lib/jquery/"
+}
+]
 }

@@ -3,409 +3,330 @@
     @*Layout = "_ServiceLayout";*@
 }
 
-<div class="dvWelcome d-flex justify-content-center align-items-center">
-    Welcome,&nbsp;<span id="proname" class="fw-bold">@ViewBag.UserName</span>
-</div>
-<section class="container my-4 d-flex justify-content-center">
-    <div class="dv-ser-pro-menu me-3">
-        <a id="lnk-dashboard" href="#" onclick="showDashboard('lnk-dashboard');">Dashboard</a>
-        <a id="lnk-new-ser-req" href="#" onclick="showNewServiceRequests('lnk-new-ser-req');">New Service Requests</a>
-        <a id="lnk-upcoming-services" href="#" onclick="showUpcomingServices('lnk-upcoming-services');">Upcoming Services</a>
-        <a id="lnk-ser-schedule" href="#" onclick="showServiceSchedule('lnk-ser-schedule');">Service Schedule</a>
-        <a id="lnk-ser-history" href="#" onclick="showServiceHistory('lnk-ser-history');">Service History</a>
-        <a id="lnk-myratings" href="#" onclick="showMyRatings('lnk-myratings');">My Ratings</a>
-        <a id="lnk-block-cus" href="#" onclick="showBlockCustomer('lnk-block-cus');">Block Customer</a>
-    </div>
-    <div id="sidebarlink_container" class="ser-provider-submenu-list">
-        <div id="dv-dashboard">Dashboard</div>
-        <div id="dv-new-ser-req">New Service Requests</div>
-        <div id="dv-upcoming-services">
-            <!-- Data table start -->
-            <table id="tblUpcomingServices" class="table-data mb-3" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Service ID</th>
-                        <th>Service data</th>
-                        <th>Customer details</th>
-                        <th>Distance</th>
-                        <th data-orderable="false">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>323436</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
-                        </td>
-                        <td>
-                            <div>Manali Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>15 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323437</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Nida Mirza</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>18 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323434</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Drashti Bhavsar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
-                        </td>
-                        <td>13 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323439</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Bhavin Shah</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
-                        </td>
-                        <td>20 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323440</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Deep Patel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
-                        </td>
-                        <td>25 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323443</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Joyal Suthar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
-                        </td>
-                        <td>11 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323444</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
-                        </td>
-                        <td>
-                            <div>Shivani Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
-                        </td>
-                        <td>14 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
+<!DOCTYPE html>
+<html lang="en">
 
-                    <tr>
-                        <td>323436</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
-                        </td>
-                        <td>
-                            <div>Manali Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>15 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323437</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Nida Mirza</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>18 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323434</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Drashti Bhavsar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
-                        </td>
-                        <td>13 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323439</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Bhavin Shah</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
-                        </td>
-                        <td>20 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323440</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Deep Patel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
-                        </td>
-                        <td>25 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323443</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Joyal Suthar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
-                        </td>
-                        <td>11 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323444</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
-                        </td>
-                        <td>
-                            <div>Shivani Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
-                        </td>
-                        <td>14 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323436</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
-                        </td>
-                        <td>
-                            <div>Manali Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>15 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323437</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Nida Mirza</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>18 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323434</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Drashti Bhavsar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
-                        </td>
-                        <td>13 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323439</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Bhavin Shah</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
-                        </td>
-                        <td>20 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323440</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Deep Patel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
-                        </td>
-                        <td>25 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323443</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Joyal Suthar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
-                        </td>
-                        <td>11 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323444</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
-                        </td>
-                        <td>
-                            <div>Shivani Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
-                        </td>
-                        <td>14 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Services</title>
 
-                    <tr>
-                        <td>323436</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">09/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 18:00</div>
-                        </td>
-                        <td>
-                            <div>Manali Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>15 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323437</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/04/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Nida Mirza</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Musterstrabe 5,12345 Bonn</div>
-                        </td>
-                        <td>18 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323434</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2018</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Drashti Bhavsar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Sattadhar, Ahmedabad</div>
-                        </td>
-                        <td>13 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323439</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/02/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Bhavin Shah</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Petlad</div>
-                        </td>
-                        <td>20 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323440</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">10/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 11:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Deep Patel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Navsari</div>
-                        </td>
-                        <td>25 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323443</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">14/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 12:00 - 15:00</div>
-                        </td>
-                        <td>
-                            <div>Joyal Suthar</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Borsad</div>
-                        </td>
-                        <td>11 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                    <tr>
-                        <td>323444</td>
-                        <td>
-                            <div><img src="~/images/upcoming-service/calender.png" alt=""> <span class="fw-bold">11/01/2021</span></div>
-                            <div><img src="~/images/upcoming-service/clock.png" alt=""> 13:00 - 16:00</div>
-                        </td>
-                        <td>
-                            <div>Shivani Gohel</div>
-                            <div><img src="~/images/upcoming-service/place.png" alt=""> Gorva, Vadodara</div>
-                        </td>
-                        <td>14 km</td>
-                        <td><a asp-action="" asp-controller="" class="tblCancel">Cancel</a></td>
-                    </tr>
-                </tbody>
-            </table>
-            <!-- Data table end -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel=stylesheet>
+    <link href="~/css/upcomingstyle.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <header>
+        <div>
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container-fluid">
+                    <a href="index.html" title="Helper hand">
+                        <img src="~/img/site-logo.png" alt="Helper hand logo" class="logo">
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                            data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto">
+                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                                <li><a href="price1.html">Prices & services</a></li>
+                                <li><a href="#">Warranty</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="bell-icon"></div>
+                    <div class="line"></div>
+                    <div class="user">
+                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/img/user.png"></
+                        </a>
+                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction" style="margin-left:-170px;position:relative;">
+                            <li><a class="dropdown-item" href="#">My Dashboard</a></li>
+                            <li><a class="dropdown-item" href="#v-pills-settings" data-bs-toggle="pill" aria-controls="v-pills-settings">My Setting</a></li>
+                            <li><a class="dropdown-item" asp-controller="home" asp-action="logout">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+    </header>
+
+    <main>
+        <section class="welcome">
+            <h1>Welcome,<b>@ViewBag.Username</b></h1>
+        </section>
+
+        <section class="service mt-5">
+            <div class="d-flex align-items-start">
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                            aria-selected="false">
+                        Dashboard
+                    </button>
+                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                            aria-selected="false">
+                        New Service Request
+                    </button>
+                    <button class="nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
+                            aria-selected="true">
+                        Upcoming Services
+                    </button>
+                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
+                            aria-selected="false">
+                        Service Schedule
+                    </button>
+                    <button class="nav-link" id="v-pills-history-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-history" type="button" role="tab" aria-controls="v-pills-history"
+                            aria-selected="false">
+                        Service history
+                    </button>
+                    <button class="nav-link" id="v-pills-ratting-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-ratting" type="button" role="tab" aria-controls="v-pills-ratting"
+                            aria-selected="false">
+                        My Rattings
+                    </button>
+                    <button class="nav-link" id="v-pills-block-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-block" type="button" role="tab" aria-controls="v-pills-block"
+                            aria-selected="false">
+                        block Customer
+                    </button>
+                </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade" id="v-pills-home" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab"> </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                         aria-labelledby="v-pills-profile-tab"> </div>
+                    <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel"
+                         aria-labelledby="v-pills-messages-tab">
+                        <div class="container table-responsive">
+                            <table>
+                                <!--   The Head of The Table -->
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Service ID <img src="~/img/forma-1_2.png" alt=""></th>
+                                        <th scope="col">Service Date <img src="~/img/forma-1_2.png" alt=""></th>
+                                        <th scope="col">Customer Details <img src="~/img/forma-1_2.png" alt=""></th>
+                                        <th scope="col">Distance <img src="~/img/forma-1_2.png" alt=""></th>
+                                        <th scope="col" style="padding-left: 24px;">Action</th>
+                                    </tr>
+                                    <!--  End of The Head -->
+                                </thead>
+                                <!--   The Body of The Table -->
+                                <tbody>
+                                    <!--          First Row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <!--         Second Row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <!-- third row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <!-- Fourth Row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <!--  Fifth Row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <!-- Sixth Row -->
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+                                    <tr scope="row">
+                                        <td>323436</td>
+                                        <td>
+                                            <img src="~/img/cal.png" alt=""> 30/30/30
+                                            <img src="~/img/clock.png" alt=""> 12:00-18:00
+                                        </td>
+                                        <td>
+                                            David Bough
+                                            <img src="~/img/home.png" alt=""> Musterstrabe 5,12345 Bonn
+                                        </td>
+                                        <td>15 Km</td>
+                                        <td><a class="btn" href="">Cancle</a></td>
+                                    </tr>
+
+                                    <!-- End of The of The Table -->
+                                </tbody>
+                                <!-- End of The Table -->
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                         aria-labelledby="v-pills-settings-tab"> </div>
+                    <div class="tab-pane fade" id="v-pills-history" role="tabpanel"
+                         aria-labelledby="v-pills-ratting-tab"> </div>
+                    <div class="tab-pane fade" id="v-pills-ratting" role="tabpanel"
+                         aria-labelledby="v-pills-ratting-tab"> </div>
+                    <div class="tab-pane fade" id="v-pills-block" role="tabpanel"
+                         aria-labelledby="v-pills-block-tab"> </div>
+                </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 footer-widget">
+                        <a href="index.html" title="Helper Hand">
+                            <img src="~/img/site-logo.png" alt="Helper Hand">
+                        </a>
+                    </div>
+                    <div class="col-lg-8 footer-widget">
+                        <ul class="footer-navigation d-flex justify-content-center">
+                            <li>
+                                <a href="index.html" title="Home">Home</a>
+                            </li>
+                            <li>
+                                <a href="about.html" title="About">About</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Testimonials">Testimonials</a>
+                            </li>
+                            <li>
+                                <a href="faq.html" title="FAQs">FAQs</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Insurance Policy">Insurance Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" title="Impressum">Impressum</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 footer-widget">
+                        <ul class="social-media-list d-flex justify-content-end">
+                            <li>
+                                <a href="#" target="_blank" title="Facebook">
+                                    <img src="~/img/fb.png" alt="Facebook">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank" title="Instagram">
+                                    <img src="~/img/insta.png" alt="Instagram">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="dv-ser-schedule">Service Schedule</div>
-        <div id="dv-ser-history">Service History</div>
-        <div id="dv-myratings">My Ratings</div>
-        <div id="dv-block-cus">Block Customer</div>
-    </div>
-    <input type="hidden" id="hdnActiveMenu" value="">
-</section>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p> ©2018Helperland All rights reserved.Terms and Conditions  | <a href="#" title="Privacy Policy">Privacy Policy</a></p>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+</body>
+
+</html>
