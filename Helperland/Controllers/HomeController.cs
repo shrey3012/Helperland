@@ -490,7 +490,7 @@ namespace Helperland.Controllers
                 Comments = model.Comments.ToString(),
                 PaymentDone = true,
                 PaymentDue = false,
-                ServiceProviderId = 1,
+                //ServiceProviderId = 1,
                 HasPets = model.HasPets,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,

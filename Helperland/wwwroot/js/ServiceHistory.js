@@ -36,7 +36,6 @@ function showdetails() {
             $("#lastname").val(data[0].lastName);
             $("#email").val(data[0].email)
             $("#mobile").val(data[0].mobile)
-            console.log(data)
         },
         error: function (data) {
             alert("error");
@@ -111,5 +110,8 @@ function changepwd() {
                 console.log(err);
             }
         })
+    }
+    else {
+        alert("Error");
     }
 }

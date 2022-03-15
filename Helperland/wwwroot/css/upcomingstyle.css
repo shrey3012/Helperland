@@ -135,8 +135,30 @@ body { font-family: 'Roboto' }
     width: 80px;
     height: 34px;
   }
+.radio.inline {
+    display: inline-block;
+}
+ .account-status {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    margin: 0 0 25px;
+}
+#password .form-control {
+    width: auto;
+}
+td{
+    padding-left:10px;
+    vertical-align:middle;
+}
+.onHover{
+    cursor: pointer;
+}
 
-  .site-footer .container { max-width: 1420px; }
+
+.site-footer .container {
+    max-width: 1420px;
+}
   .site-footer .footer-top { background: #111111; padding: 27px 0; margin-top: 29.99px;}
   .site-footer a { display: inline-block; }
   .site-footer ul { list-style: none; padding: 0; margin: 0; }
