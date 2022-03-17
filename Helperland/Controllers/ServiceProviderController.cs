@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -102,7 +103,9 @@ namespace Helperland.Controllers
                           from sr in sr1.DefaultIfEmpty()
                           join sp in helperLandContext.ServiceRequestAddresses on (int?)sr.ServiceRequestId equals (int?)sp.ServiceRequestId into sp1
                           from sp in sp1.DefaultIfEmpty()
-                          where( (int?)cs.UserTypeId == 2 && sr.ServiceProviderId == null)
+                          join fb in helperLandContext.FavoriteAndBlockeds on (int?)sr.UserId equals (int?)fb.TargetUserId into fb1
+                          from fb in fb1.DefaultIfEmpty()
+                          where  (int?)cs.UserTypeId == 2 && sr.ServiceProviderId == null && (int?)fb.TargetUserId != (int?)sr.UserId
                           select new
                           {
                               ServiceRequestId = (int?)sr.ServiceRequestId,
@@ -284,6 +287,102 @@ namespace Helperland.Controllers
                               // SPRate = helperLandContext.Ratings.Where(x => x.RatingTo == (int?)sp.UserId).Select(z => z.Ratings).AsEnumerable()
                           }).ToList();
             return Json(result);
+        }
+        [HttpGet]
+        public JsonResult getCustomersForSPBlockedData()
+        {
+            var serviceRequests = (from sr in helperLandContext.ServiceRequests
+                                   join u in helperLandContext.Users on sr.UserId equals u.UserId
+                                   where sr.ServiceProviderId == getLoggedinUserId() && sr.Status == 1
+                                   select new
+                                   {
+                                       serviceproviderid = sr.ServiceProviderId,
+                                       customername = u.FirstName + " " + u.LastName,
+                                       customerprofile = u.UserProfilePicture,
+                                       customeruserid = u.UserId,
+                                       blockeduser = helperLandContext.FavoriteAndBlockeds.Where(x => x.TargetUserId == u.UserId).FirstOrDefault()
+                                   }).Distinct();
+            return Json(serviceRequests);
+        }
+        public JsonResult BlockCustomerByLoggedinSP(int targetuserid)
+        {
+            FavoriteAndBlocked favoriteAndBlocked = new FavoriteAndBlocked()
+            {
+                UserId = getLoggedinUserId(),
+                TargetUserId = targetuserid,
+                IsFavorite = false,
+                IsBlocked = true,
+            };
+
+            helperLandContext.FavoriteAndBlockeds.Add(favoriteAndBlocked);
+             helperLandContext.SaveChanges();
+            return Json(targetuserid);
+        }
+        public JsonResult UnBlockCustomerByLoggedinSP(int targetuserid)
+        {
+            var unblockuser = helperLandContext.FavoriteAndBlockeds.Where(x => x.TargetUserId == targetuserid).FirstOrDefault();
+            helperLandContext.FavoriteAndBlockeds.Remove(unblockuser);
+            helperLandContext.SaveChanges();
+            return Json(targetuserid);
+        }
+        public JsonResult updateSPDetails([FromBody]SpDetailsViewModel spDetails)
+        {
+            var sp = HttpContext.Session.GetInt32("UserId");
+
+            User user = helperLandContext.Users.Where(u => u.UserId == sp).FirstOrDefault();
+            if (user != null)
+            {
+                user.FirstName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(spDetails.FirstName);
+                user.LastName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(spDetails.LastName);
+                user.Mobile = spDetails.Mobile;
+                /*if (spDetails.Year != 0 && spDetails.Month != 0 && spDetails.Date != 0)
+                {
+                    user.DateOfBirth = new DateTime(spDetails.Year, spDetails.Month, spDetails.Date, 00, 00, 00, 0);
+                }*/
+                //user.NationalityId = spDetails.Nationality;
+                user.Gender = spDetails.Gender;
+                user.UserProfilePicture = spDetails.SPProfilePicture;
+                user.ZipCode = spDetails.PostalCode;
+                user.ModifiedBy = (int)UserTypeIdEnum.ServiceProvider;
+                user.ModifiedDate = DateTime.Now;
+            }
+            helperLandContext.Users.Update(user);
+            if (spDetails.AddressLine1 != "" || spDetails.AddressLine2 != "" || spDetails.PostalCode != "")
+            {
+                UserAddress spAdd = helperLandContext.UserAddresses.Where(a => a.UserId == sp).FirstOrDefault();
+                if (spAdd != null)
+                {
+                    spAdd.AddressLine1 = spDetails.AddressLine1;
+                    spAdd.AddressLine2 = spDetails.AddressLine2;
+                    spAdd.PostalCode = spDetails.PostalCode;
+                    spAdd.City = spDetails.City;
+                    spAdd.State = spDetails.State;
+                    spAdd.IsDefault = true;
+                    spAdd.IsDeleted = true;
+                    spAdd.Mobile = spDetails.Mobile;
+                    spAdd.Email = spDetails.Email;
+                    helperLandContext.UserAddresses.Update(spAdd);
+                }
+                else
+                {
+                    UserAddress spAddress = new UserAddress
+                    {
+                        UserId = (int)sp,
+                        AddressLine1 = spDetails.AddressLine1,
+                        AddressLine2 = spDetails.AddressLine2,
+                        PostalCode = spDetails.PostalCode,
+                        City = spDetails.City,
+                        State = spDetails.State,
+                        IsDefault = true,
+                        IsDeleted = true,
+                        Mobile = spDetails.Mobile,
+                        Email = spDetails.Email
+                    };
+                    helperLandContext.UserAddresses.Add(spAddress);
+                }
+            }
+            helperLandContext.SaveChanges();
+            return Json(spDetails);
         }
     }
 }

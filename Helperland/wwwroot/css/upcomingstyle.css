@@ -154,7 +154,37 @@ td{
 .onHover{
     cursor: pointer;
 }
+.dvblockcustomer {
+    border: 1px solid transparent !important;
+}
 
+    .dvblockcustomer .blockcustomer {
+        border: 1px solid transparent !important;
+    }
+
+    .dvblockcustomer .dataTables_wrapper {
+        border: 1px solid transparent !important;
+    }
+
+.blockcustomer tbody {
+    display: flex;
+}
+
+    .blockcustomer tbody tr {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        border: 1px solid #e1e1e1;
+        margin-left: 2%;
+        background-color: white !important;
+        text-align: center;
+        border-radius: 3px;
+        color: #646464;
+    }
+
+        .blockcustomer tbody tr td {
+            border: none !important;
+        }
 
 .site-footer .container {
     max-width: 1420px;

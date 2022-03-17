@@ -1,12 +1,10 @@
 ﻿
 $(document).ready(function () {
-    $('#example').DataTable();
     getSpDashboard();
-    getSpdetails();
     upcomingSer();
     getHistory();
-    $("#dvCusUpdateSuccess").hide();
-    $("#dvCusChangePassword").hide();
+    BlockTab();
+    
 });
 function changepwd() {
     var count = 0;
@@ -155,6 +153,7 @@ function getSpdetails() {
             $("#house").val(data[0].house)
             $("#postal").val(data[0].postal)
             $("#city").val(data[0].city)
+            $("input[name=rbGenderSP][value=" + data[0].gender + "]").attr('checked', 'checked');
         },
         error: function (data) {
             alert("error");
@@ -351,7 +350,6 @@ function showUpcomingRequestDetails(serviceRequestId) {
     });
 }
 function completereq(serviceRequestId) {
-    debugger;
     $.ajax({
         type: "post",
         url: "/ServiceProvider/CompleteService",
@@ -405,4 +403,149 @@ function getHistory() {
             alert("error: " + response.responseText);
         }
     });
+}
+function selectedAvatarImage(selectedImageId) {
+    var imgs = ["img-avatar-car", "img-avatar-female", "img-avatar-hat", "img-avatar-iron", "img-avatar-male", "img-avatar-ship"];
+    for (var i = 0; i < imgs.length; i++) {
+        if (imgs[i] == selectedImageId) {
+            document.getElementById(imgs[i]).classList.remove('unselectedAvatar');
+            document.getElementById(imgs[i]).classList.add('selectedAvatar');
+            document.getElementById("dvspProfile").innerHTML = "<img id='imgSPProfie' src='../../img/" + imgs[i].split('-')[1] + "-" + imgs[i].split('-')[2] + ".png' />";
+        }
+        else {
+            document.getElementById(imgs[i]).classList.remove('selectedAvatar');
+            document.getElementById(imgs[i]).classList.add('unselectedAvatar');
+        }
+    }
+}
+function BlockTab() {
+    $.ajax({
+        url: '/ServiceProvider/getCustomersForSPBlockedData',
+        type: 'get',
+        success: function (response) {
+            var tblspBlockCustomer = $('#tblspBlockCustomer').DataTable();
+            tblspBlockCustomer.clear().draw();
+            response.forEach(function (e) {
+                var strBtnBlockUnblock = "";
+                if (e.blockeduser != null ) {
+                    strBtnBlockUnblock = "<button class='btnratesp px-4 py-2 ' onclick='UnBlockCustomerByLoggedinSP(" + e.customeruserid + ")'>Unblock</button>";
+                }
+                else {
+                    strBtnBlockUnblock = "<button class='tblCancel px-4 py-2 ' onclick='BlockCustomerByLoggedinSP(" + e.customeruserid + ")'>Block</button>";
+                }
+                tblspBlockCustomer.row.add([
+                    "<img src='../../img/avatar-hat.png' />",
+                    "<label class='fw-bold mt-2'>" + e.customername + "</label>",
+                    strBtnBlockUnblock
+                ]).draw(false);
+            });
+        }
+    });
+}
+function BlockCustomerByLoggedinSP(targetuserid) {
+    $.ajax({
+        url: '/ServiceProvider/BlockCustomerByLoggedinSP',
+        type: 'post',
+        data: { 'targetuserid': targetuserid },
+        success: function (response) {
+            if (response > 0) {
+                BlockTab();
+            }
+        }
+    });
+}
+function UnBlockCustomerByLoggedinSP(targetuserid) {
+    $.ajax({
+        url: '/ServiceProvider/UnBlockCustomerByLoggedinSP',
+        type: 'post',
+        data: { 'targetuserid': targetuserid },
+        success: function (response) {
+            if (response > 0) {
+                BlockTab();
+            }
+        }
+    });
+}
+function saveSPDetails() {
+    debugger;
+    var vSPDetailsCount = 0;
+    if ($("#firstName").val().trim().length > 0) {
+       
+        $("#spnFirstnameSPMydetails").html("");
+        vSPDetailsCount++;
+    }
+    else {
+        $("#spnFirstnameSPMydetails").html("Enter First name!!");
+        vSPDetailsCount--;
+    }
+    if ($("#lastname").val().trim().length > 0) {
+        document.getElementById("spnLastnameSPMydetails").innerHTML = "";
+        vSPDetailsCount++;
+    }
+    else {
+        
+        document.getElementById("spnLastnameSPMydetails").innerHTML = "Enter Last name!!";
+        vSPDetailsCount--;
+    }
+    if ($("#mobile").val().trim().length > 0) {
+        if ($("#mobile").val().trim().length < 10) {
+            document.getElementById("spnMobileSPMydetails").innerHTML = "Enter valid Phone number!!";
+            vSPDetailsCount--;
+        }
+        else {
+            
+            document.getElementById("spnMobileSPMydetails").innerHTML = "";
+            vSPDetailsCount++;
+        }
+    }
+    else {
+        document.getElementById("spnMobileSPMydetails").innerHTML = "Enter Phone number!!";
+        vSPDetailsCount--;
+
+    }
+    if ($("#postal").val().trim().length == 0) {
+        document.getElementById("spnPostalCodeSPAdd").innerHTML = "Enter Postal code!!";
+        vSPDetailsCount--;
+
+    }
+    else if ($("#postal").val().trim().length > 0 || $("#postal").val().trim().length < 6) {
+        if ($("#postal").val().trim().length == 6 && document.getElementById("spnPostalCodeSPAdd").innerHTML == "") {
+            vSPDetailsCount++;
+        }
+        
+    }
+    
+    if (vSPDetailsCount == 4) {
+        var data = {};
+        data.firstName = $("#firstName").val();
+        data.LastName= $("#lastname").val();
+        data.Email= $("#email").val();
+        data.Mobile= $("#mobile").val();
+        data.Gender = $('#gender:checked').val();
+        data.AddressLine1 = $("#streetName").val();
+        data.AddressLine2= $("#house").val();
+        data.PostalCode= $("#postal").val();
+        data.City= $("#city").val();
+        
+        if ($("#imgSPProfie").attr("src").toString().includes('..')) {
+            data.SPProfilePicture = $("#imgSPProfie").attr("src").toString().split('..')[2];
+        }
+        else {
+            data.SPProfilePicture = $("#imgSPProfie").attr('src');
+        }
+        $.ajax({
+            type: "post",
+            dataType: "JSON",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            url: "/ServiceProvider/updateSPDetails",
+            success: function (response) {
+                alert("Data updated successfully");
+                getSpdetails();
+            },
+            error: function (response) {
+                alert("error: " + response.responseText);
+            }
+        });
+    }
 }
