@@ -109,7 +109,7 @@ namespace Helperland.Controllers
                 if (model.attachment != null)
                 {
                     string UploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "upload\\contactus_attachment");
-                    filename = Guid.NewGuid().ToString() + "_" + model.attachment.FileName;
+                    filename =  model.attachment.FileName;
                     filepath = Path.Combine(UploadsFolder, filename);
                     using (var fileStream = new FileStream(filepath, FileMode.Create))
                     {
@@ -134,7 +134,7 @@ namespace Helperland.Controllers
                     From = "",
                     To = "",
                     Subject = Newcontact.Subject,
-                    Body = Newcontact.Message,
+                    Body ="Custname :"+ Newcontact.Name+"<br> Email :"+Newcontact.Email +"<br> Mobile :"+ Newcontact.PhoneNumber+ "<br> Message :"+ Newcontact.Message,
                     Attachment = filepath
                 };
                 MailHelper mailhelp = new MailHelper(configuration);

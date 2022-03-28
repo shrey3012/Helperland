@@ -116,7 +116,7 @@ table {
   }
   /* Attributes of Each Cell */
   td {
-    
+    vertical-align:middle;
     height:65px;
   }
   .status-badge.success{
@@ -144,9 +144,11 @@ table {
     height: 40px;
     margin: 0 5px;
   }
-  .end{
-      color: #A2A6A8;
-  }
+.end {
+    color: #A2A6A8;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
 
 .threedotmenu{
     width: 30px;
@@ -172,4 +174,15 @@ table {
 .dates .form-control{
     width: 135px;
     display: inline-flex;
+}
+.status-badge.success {
+    background: #67B644;
+}
+
+.status-badge {
+    font-size: 13px;
+    line-height: 18px;
+    color: #fff;
+    display: inline-block;
+    padding: 2px 10px;
 }

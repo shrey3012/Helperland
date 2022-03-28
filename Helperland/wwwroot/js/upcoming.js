@@ -124,10 +124,10 @@ function showServiceRequestDetails(serviceRequestId) {
                 str += "<hr/>";
                 str += "<div class='fw-bold mb-1'>Comments</div>";
                 if (v.hasPets) {
-                    str += "<div class='d-flex justify-align-center align-items-center'><img src='../../images/service-history/included.png' class='me-2' />I don have pets at home</div>";
+                    str += "<div class='d-flex justify-align-center align-items-center'><img src='../../img/included.png' class='me-2' />I don have pets at home</div>";
                 }
                 else {
-                    str += "<div class='d-flex justify-align-center align-items-center'><img src='../../images/service-history/not-included.png' class='me-2' />I don't have pets at home</div>";
+                    str += "<div class='d-flex justify-align-center align-items-center'><img src='../../img/not-included.png' class='me-2' />I don't have pets at home</div>";
                 }
                 
                 document.getElementById("dvServiceDetailsModalBody").innerHTML = str;
@@ -467,7 +467,6 @@ function UnBlockCustomerByLoggedinSP(targetuserid) {
     });
 }
 function saveSPDetails() {
-    debugger;
     var vSPDetailsCount = 0;
     if ($("#firstName").val().trim().length > 0) {
        

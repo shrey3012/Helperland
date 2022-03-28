@@ -72,28 +72,7 @@ function Tab4Click() {
   $("#tabContent3").hide();
   $("#tabContent4").show();
 }
-/*function SearchZipCode() {
-  $("#tab2").addClass("active-tab");
-  $("#tab1").removeClass("active-tab").addClass("tab");
-    $("#tabContent1").hide();
-    $("#tabContent2").show();
-    *//*var pin = document.getElementbyId("enterZipcode")
-    if (pin.length > 0) {
-        if (pin.length < 6) {
-            pin.innerHTML = "Enter valid potalcode";
-        }
-        else {
-            $.ajax({
-                type: "post",
-                url: '@Url.Action("Searchzipcode","Home")',
-                data: { '$("#ZipCode").val()' },
-                success: function (response) {
-                    showtabContent2();
-                }
-            })
-        }
-    }*//*
-}*/
+
 
 function checkAvailabilityOfSP() {
     var spnAvailability = document.getElementById("spnCheckAvailability");
@@ -149,51 +128,7 @@ function SaveAddress() {
     $("#confirmZipCode").html($("#txtzipcode").val());
 }
 
-/*function CompleteBooking() {
-  
-    var booking = {};
-    
-  booking.zipCode = $("#ZipCode").val();
-  booking.bookingStartTime = $("#StartDate").val() + " " + $("#StartTime").val();
-  booking.hours = $("#Hours").val();
-    booking.address1 = $("#Address1").val();
-    booking.SubTotal = 50;
-    booking.TotalCost = 50;
-    booking.PaymentDue = 0;
-    booking.CreatedDate = Date.now();
-    booking.ModifiedDate = Date.now();
-    booking.Distance = 10;
-   
 
-  $.ajax({
-      url: '@Url.Action("booking", "Home")',
-      type: 'post',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify(booking),
-      success: function (resp) {
-         
-          $("#successMessage").show();
-          var html = "<br/><br/>Congratulations!<br/> Your Booking hass been confirmed for <br/><b>Service Date</b>: " + resp.Result.bookingStartTime + "<br/>" +
-              "<b>Service Hours</b>: " + resp.Result.hours + "<br/>" +
-              "<b>Zip Code</b>: " + resp.Result.zipCode + "<br/>";
-          $("#successMessage").html(html).fadeOut(7000);
-      }
-      error: function (err) {
-          
-          alert(err.responseText);
-      }
-  });
-}*/
-
-
-/*function CompleteBooking() {
-    Swal.fire({
-        icon: 'success',
-        title: 'Booking has been successfully submitted!!',
-       
-    });
-}*/
 
 function initialyExtraServices(){
   document.getElementById("ser-cabinet-selected").style.display="none";

@@ -10,7 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel=stylesheet>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
     <link rel='stylesheet' href="css/usermngstyle.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="~/js/admin.js"></script>
 </head>
 <body>
     <header>
@@ -20,7 +24,7 @@
                 <ul>
                     <li><img src="~/img/user.png" alt=""></li>
                     <li><p>Jeams Smith</p></li>
-                    <li class="logout"><a href="#"><img src="~/img/logout.png" alt=""></a></li>
+                    <li class="logout"><a asp-controller="home" asp-action="logout"><img src="~/img/logout.png" alt=""></a></li>
                 </ul>
             </div>
         </div>
@@ -48,20 +52,20 @@
                         <input list="browsers" name="browser" placeholder="Customer">
                         <datalist id="browsers">
                             @*<option value=" Lyum Watson">
-                            <option value="A">
-                            <option value="B">
-                            <option value="C">
-                            <option value="D">*@
+                                <option value="A">
+                                <option value="B">
+                                <option value="C">
+                                <option value="D">*@
                         </datalist>
                         &nbsp;
                         &nbsp;
                         <input list="browsers" name="browser" placeholder="Service Provider">
                         <datalist id="browsers">
                             @*<option value=" Lyum Watson">
-                            <option value="A">
-                            <option value="B">
-                            <option value="C">
-                            <option value="D">*@
+                                <option value="A">
+                                <option value="B">
+                                <option value="C">
+                                <option value="D">*@
                         </datalist>
                         &nbsp;
                         &nbsp;
@@ -94,294 +98,23 @@
                         &nbsp;
                         <button type="button" class="btn2">Clear</button>
                     </div>
-                    <div class="table-responsive">
-                        <table>
-                            <!--   The Head of The Table -->
+                    <div class="container table-responsive">
+                        <table id="example" class="table" style="min-width:1000px;">
                             <thead>
                                 <tr>
-                                    <th scope="col">Service ID <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Service Date <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Customer Deatils <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Service Provider <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Status <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Action</th>
+                                    <th>Service ID</th>
+                                    <th>Service Date</th>
+                                    <th>Customer Details</th>
+                                    <th>Payment</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
                                 </tr>
-                                <!--  End of The Head -->
                             </thead>
-                            <!--   The Body of The Table -->
                             <tbody>
-                                <!--          First Row -->
-                                <tr scope="row">
-                                    <td>123456</td>
-                                    <td>
-                                        <img src="~/img/cal.png" alt=""> 31/03/2018 <br>
-                                        <img src="~/img/clock.png" alt=""> 12:00-18:00
-                                    </td>
-                                    <td>
-                                        David Bough <br>
-                                        <img src="~/img/home.png" alt="">Musterstrabe 5,12345
-                                    </td>
-                                    <td>
-                                        <img src="~/img/forma-1.png" alt="">lyum Watson <br>
-                                        <rating class="ng-rating ng-untouched ng-pristine ng-invalid" iconclass="glyphicon glyphicon-star star-icon" _nghost-c6="" required="">
-                                            <span _ngcontent-c6="" aria-valuemin="0" class="rating readonly" role="slider" tabindex="0" aria-valuemax="5" aria-valuenow="0">
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half0" title="1">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-100" title="2">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-200" title="3">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-300" title="4">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-400" title="5">☆</i>
-                                                </span>
-                                            </span>
-                                        </rating>
-                                    </td>
-                                    <td class="text-center action-buttons">
-                                        <span class="status-badge success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
-                                            <li><a class="dropdown-item" href="#">Refund</a></li>
-                                            <li><a class="dropdown-item" href="#">Cancle</a></li>
-                                            <li><a class="dropdown-item" href="#">Change SP</a></li>
-                                            <li><a class="dropdown-item" href="#">Escalate</a></li>
-                                            <li><a class="dropdown-item" href="#">History Log</a></li>
-                                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!-- second -->
-                                <tr scope="row">
-                                    <td>123456</td>
-                                    <td>
-                                        <img src="~/img/cal.png" alt=""> 31/03/2018 <br>
-                                        <img src="~/img/clock.png" alt=""> 12:00-18:00
-                                    </td>
-                                    <td>
-                                        David Bough <br>
-                                        <img src="~/img/home.png" alt="">Musterstrabe 5,12345
-                                    </td>
-                                    <td>
-                                        <img src="~/img/forma-1.png" alt="">lyum Watson <br>
-                                        <rating class="ng-rating ng-untouched ng-pristine ng-invalid" iconclass="glyphicon glyphicon-star star-icon" _nghost-c6="" required="">
-                                            <span _ngcontent-c6="" aria-valuemin="0" class="rating readonly" role="slider" tabindex="0" aria-valuemax="5" aria-valuenow="0">
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half0" title="1">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-100" title="2">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-200" title="3">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-300" title="4">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-400" title="5">☆</i>
-                                                </span>
-                                            </span>
-                                        </rating>
-                                    </td>
-                                    <td class="text-center action-buttons">
-                                        <span class="status-badge success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
-                                            <li><a class="dropdown-item" href="#">Refund</a></li>
-                                            <li><a class="dropdown-item" href="#">Cancle</a></li>
-                                            <li><a class="dropdown-item" href="#">Change SP</a></li>
-                                            <li><a class="dropdown-item" href="#">Escalate</a></li>
-                                            <li><a class="dropdown-item" href="#">History Log</a></li>
-                                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!-- third -->
-                                <tr scope="row">
-                                    <td>123456</td>
-                                    <td>
-                                        <img src="~/img/cal.png" alt=""> 31/03/2018 <br>
-                                        <img src="~/img/clock.png" alt=""> 12:00-18:00
-                                    </td>
-                                    <td>
-                                        David Bough <br>
-                                        <img src="~/img/home.png" alt="">Musterstrabe 5,12345
-                                    </td>
-                                    <td>
-                                        <img src="~/img/forma-1.png" alt="">lyum Watson <br>
-                                        <rating class="ng-rating ng-untouched ng-pristine ng-invalid" iconclass="glyphicon glyphicon-star star-icon" _nghost-c6="" required="">
-                                            <span _ngcontent-c6="" aria-valuemin="0" class="rating readonly" role="slider" tabindex="0" aria-valuemax="5" aria-valuenow="0">
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half0" title="1">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-100" title="2">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-200" title="3">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-300" title="4">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-400" title="5">☆</i>
-                                                </span>
-                                            </span>
-                                        </rating>
-                                    </td>
-                                    <td class="text-center action-buttons">
-                                        <span class="status-badge success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
-                                            <li><a class="dropdown-item" href="#">Refund</a></li>
-                                            <li><a class="dropdown-item" href="#">Cancle</a></li>
-                                            <li><a class="dropdown-item" href="#">Change SP</a></li>
-                                            <li><a class="dropdown-item" href="#">Escalate</a></li>
-                                            <li><a class="dropdown-item" href="#">History Log</a></li>
-                                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!-- forth -->
-                                <tr scope="row">
-                                    <td>123456</td>
-                                    <td>
-                                        <img src="~/img/cal.png" alt=""> 31/03/2018 <br>
-                                        <img src="~/img/clock.png" alt=""> 12:00-18:00
-                                    </td>
-                                    <td>
-                                        David Bough <br>
-                                        <img src="~/img/home.png" alt="">Musterstrabe 5,12345
-                                    </td>
-                                    <td>
-                                        <img src="~/img/forma-1.png" alt="">lyum Watson <br>
-                                        <rating class="ng-rating ng-untouched ng-pristine ng-invalid" iconclass="glyphicon glyphicon-star star-icon" _nghost-c6="" required="">
-                                            <span _ngcontent-c6="" aria-valuemin="0" class="rating readonly" role="slider" tabindex="0" aria-valuemax="5" aria-valuenow="0">
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half0" title="1">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-100" title="2">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-200" title="3">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-300" title="4">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-400" title="5">☆</i>
-                                                </span>
-                                            </span>
-                                        </rating>
-                                    </td>
-                                    <td class="text-center action-buttons">
-                                        <span class="status-badge success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
-                                            <li><a class="dropdown-item" href="#">Refund</a></li>
-                                            <li><a class="dropdown-item" href="#">Cancle</a></li>
-                                            <li><a class="dropdown-item" href="#">Change SP</a></li>
-                                            <li><a class="dropdown-item" href="#">Escalate</a></li>
-                                            <li><a class="dropdown-item" href="#">History Log</a></li>
-                                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!-- fifth -->
-                                <tr scope="row">
-                                    <td>123456</td>
-                                    <td>
-                                        <img src="~/img/cal.png" alt=""> 31/03/2018 <br>
-                                        <img src="~/img/clock.png" alt=""> 12:00-18:00
-                                    </td>
-                                    <td>
-                                        David Bough <br>
-                                        <img src="~/img/home.png" alt="">Musterstrabe 5,12345
-                                    </td>
-                                    <td>
-                                        <img src="~/img/forma-1.png" alt="">lyum Watson <br>
-                                        <rating class="ng-rating ng-untouched ng-pristine ng-invalid" iconclass="glyphicon glyphicon-star star-icon" _nghost-c6="" required="">
-                                            <span _ngcontent-c6="" aria-valuemin="0" class="rating readonly" role="slider" tabindex="0" aria-valuemax="5" aria-valuenow="0">
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half0" title="1">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-100" title="2">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-200" title="3">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-300" title="4">☆</i>
-                                                </span>
-                                                <span _ngcontent-c6="">
-                                                    <i _ngcontent-c6="" data-icon="★" class="glyphicon glyphicon-star star-icon half-400" title="5">☆</i>
-                                                </span>
-                                            </span>
-                                        </rating>
-                                    </td>
-                                    <td class="text-center action-buttons">
-                                        <span class="status-badge success">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
-                                            <li><a class="dropdown-item" href="#">Refund</a></li>
-                                            <li><a class="dropdown-item" href="#">Cancle</a></li>
-                                            <li><a class="dropdown-item" href="#">Change SP</a></li>
-                                            <li><a class="dropdown-item" href="#">Escalate</a></li>
-                                            <li><a class="dropdown-item" href="#">History Log</a></li>
-                                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
-                        <div class="table-footer">
-                            <div class="page-length">
-                                Show
-                                <select class="form-select">
-                                   @* <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>*@
-                                </select>
-                                <span> entries</span>
-
-                            </div>
-                        </div>
-                        <div class="end">©2018 Helperland. All rights reserved.</div>
                     </div>
+                    <div class="end">©2018 Helperland. All rights reserved.</div>
                 </div>
 
                 <!-- User Management -->
@@ -394,10 +127,10 @@
                         <input list="browsers" name="browser" placeholder="Select User Name">
                         <datalist id="browsers">
                             @*<option value=" Lyum Watson">
-                            <option value="A">
-                            <option value="B">
-                            <option value="C">
-                            <option value="D">*@
+                                <option value="A">
+                                <option value="B">
+                                <option value="C">
+                                <option value="D">*@
                         </datalist>
                         &nbsp;
                         &nbsp;
@@ -440,194 +173,127 @@
                         &nbsp;
 
                     </div>
-
-                    <div class="table-responsive">
-                        <table>
-                            <!--   The Head of The Table -->
+                    <div class="container table-responsive">
+                        <table id="usermgmt" class="table" style="min-width:1000px;">
                             <thead>
                                 <tr>
-                                    <th scope="col">User Name <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">User Type <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Role <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">Postal Code <img src="~/img/forma-1_2.png" alt=""></th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Radius</th>
-                                    <th scope="col">User Status</th>
-                                    <th scope="col">Action</th>
+                                    <th>User Name</th>
+                                    <th>Date of Registration</th>
+                                    <th>User Type</th>
+                                    <th>Phone</th>
+                                    <th>Postal Code</th>
+                                    <th>User Status</th>
+                                    <th>Action</th>
                                 </tr>
-                                <!--  End of The Head -->
                             </thead>
-                            <!--   The Body of The Table -->
                             <tbody>
-                                <!--          First Row -->
-                                <tr scope="row">
-                                    <td><img src="~/img/shape-1.png" alt=""> Lyum Watson</td>
-                                    <td class="text-center">
-                                        Call Center
-                                    </td>
-                                    <td class="text-center payment">
-                                        Inquiry Manager
-                                    </td>
-                                    <td class="text-center">
-                                        123456
-                                    </td>
-                                    <td class="text-center"> Berlin</td>
-                                    <td class="text-center"> 10 KM</td>
-                                    <td class="text-center action-buttons">
-                                        <!---->
-                                        <!----><span class="status-badge success">Active</span>
-                                        <!---->
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                            <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                            <li><a class="dropdown-item" href="#">Search History</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!--          Second Row -->
-                                <tr scope="row">
-                                    <td><img src="~/img/shape-1.png" alt=""> Lyum Watson</td>
-                                    <td class="text-center">
-                                        Call Center
-                                    </td>
-                                    <td class="text-center payment">
-                                        Inquiry Manager
-                                    </td>
-                                    <td class="text-center">
-                                        123456
-                                    </td>
-                                    <td class="text-center"> Berlin</td>
-                                    <td class="text-center"> 10 KM</td>
-                                    <td class="text-center action-buttons">
-                                        <!---->
-                                        <!----><span class="status-badge success">Active</span>
-                                        <!---->
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                            <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                            <li><a class="dropdown-item" href="#">Search History</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!--          Thire Row -->
-                                <tr scope="row">
-                                    <td><img src="~/img/shape-1.png" alt=""> Lyum Watson</td>
-                                    <td class="text-center">
-                                        Call Center
-                                    </td>
-                                    <td class="text-center payment">
-                                        Inquiry Manager
-                                    </td>
-                                    <td class="text-center">
-                                        123456
-                                    </td>
-                                    <td class="text-center"> Berlin</td>
-                                    <td class="text-center"> 10 KM</td>
-                                    <td class="text-center action-buttons">
-                                        <!---->
-                                        <!----><span class="status-badge success">Active</span>
-                                        <!---->
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                            <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                            <li><a class="dropdown-item" href="#">Search History</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!--          Forth Row -->
-                                <tr scope="row">
-                                    <td><img src="~/img/shape-1.png" alt=""> Lyum Watson</td>
-                                    <td class="text-center">
-                                        Call Center
-                                    </td>
-                                    <td class="text-center payment">
-                                        Inquiry Manager
-                                    </td>
-                                    <td class="text-center">
-                                        123456
-                                    </td>
-                                    <td class="text-center"> Berlin</td>
-                                    <td class="text-center"> 10 KM</td>
-                                    <td class="text-center action-buttons">
-                                        <!---->
-                                        <!----><span class="status-badge success">Active</span>
-                                        <!---->
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                            <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                            <li><a class="dropdown-item" href="#">Search History</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <!--          Fifth Row -->
-                                <tr scope="row">
-                                    <td><img src="~/img/shape-1.png" alt=""> Lyum Watson</td>
-                                    <td class="text-center">
-                                        Call Center
-                                    </td>
-                                    <td class="text-center payment">
-                                        Inquiry Manager
-                                    </td>
-                                    <td class="text-center">
-                                        123456
-                                    </td>
-                                    <td class="text-center"> Berlin</td>
-                                    <td class="text-center"> 10 KM</td>
-                                    <td class="text-center action-buttons">
-                                        <!---->
-                                        <!----><span class="status-badge success">Active</span>
-                                        <!---->
-                                    </td>
-                                    <td>
-                                        <a href="#" id="dropaction" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <div class="threedotmenu d-flex justify-content-center align-items-center"><div class="threedot"></div></div>
-                                        </a>
-                                        <ul class="dropdown-menu dropaction" aria-labelledby="dropaction">
-                                            <li><a class="dropdown-item" href="#">Edit</a></li>
-                                            <li><a class="dropdown-item" href="#">Deactivate</a></li>
-                                            <li><a class="dropdown-item" href="#">Search History</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
-                        <div class="table-footer">
-                            <div class="page-length">
-                                Show
-                                <select class="form-select">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                <span> entries</span>
-
-                            </div>
-                        </div>
-                        <div class="end">©2018 Helperland. All rights reserved.</div>
                     </div>
+                    <div class="end">©2018 Helperland. All rights reserved.</div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+            </div>
+        </div>
+        <div class="modal" id="showServiceRequestDetailsModal" aria-labelledby="showServiceRequestDetailsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="mdlheader">Service Details</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dvServiceDetailsModalBody"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="changeReq" aria-labelledby="changeReq" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" style="min-width:700px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="mdlheader fw-bold" style="font-size:larger;">Service Details</div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="serviceRequestId">
+                            <div class="mb-3 ms-3 ps-1">
+                                <span class="small text-danger" id="spneditServicerequestAdminPanelSRs"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label ">Date</label>
+                                        <input type="date" id="date" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" class="dateForService calender-icon form-control me-2 mb-2">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Time</label>
+                                        <select class="form-control" formcontrolname="ServiceTime" id="time">
+                                            <option>08:00</option>
+                                            <option>08:30</option>
+                                            <option>09:00</option>
+                                            <option>09:30</option>
+                                            <option>10:00</option>
+                                            <option>10:30</option>
+                                            <option>11:00</option>
+                                            <option>11:30</option>
+                                            <option>12:00</option>
+                                            <option>12:30</option>
+                                            <option>13:00</option>
+                                            <option>13:30</option>
+                                            <option>14:00</option>
+                                            <option>14:30</option>
+                                            <option>15:00</option>
+                                            <option>15:30</option>
+                                            <option>16:00</option>
+                                            <option>16:30</option>
+                                            <option>17:00</option>
+                                            <option>17:30</option>
+                                            <option>18:00</option>
+                                            <option>18:30</option>
+                                            <option>19:00</option>
+                                            <option>19:30</option>
+                                            <option>20:00</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <label class="control-label fw-bold mt-2 mb-2" style="font-size:larger;">Service Address</label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label normal">Street name</label>
+                                        <input class="form-control " id="address1" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label normal">House number</label>
+                                        <input class="form-control " id="address2" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label normal">Postal code</label>
+                                        <input class="form-control " id="postalcode" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label normal">City</label>
+                                        <input class="form-control " formcontrolname="city" name="city" id="city" type="text">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary mt-2" onclick="updateReq();" id="change">Update</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -635,6 +301,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
 
 </body>
 </html>

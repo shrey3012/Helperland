@@ -54,8 +54,7 @@ namespace Helperland.Core
 
         public bool SendContectUs(EmailModel model)
         {
-            try
-            {
+           
                 var host = _configuration["Gmail:Host"];
                 var port = int.Parse(_configuration["Gmail:Port"]);
                 var username = _configuration["Gmail:Username"];
@@ -75,7 +74,7 @@ namespace Helperland.Core
 
                 mailMessage.IsBodyHtml = true;
 
-                if (model.Attachment != null)
+                if(model.Attachment != "")
                 {
                     mailMessage.Attachments.Add(new Attachment(model.Attachment));
                 }
@@ -83,11 +82,6 @@ namespace Helperland.Core
                 smtpClient.Send(mailMessage);
 
                 return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
         }
     }
 }
