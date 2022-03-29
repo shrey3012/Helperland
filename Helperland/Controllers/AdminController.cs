@@ -17,6 +17,7 @@ namespace Helperland.Controllers
     {
         private readonly HelperLandContext helperLandContext;
         private readonly IConfiguration configuration;
+        private readonly object AdminUserManagementActionsEnum;
 
         public AdminController(HelperLandContext helperLandContext, IConfiguration configuration)
         {
@@ -27,10 +28,13 @@ namespace Helperland.Controllers
         public IActionResult Index()
         {
             if (HttpContext.Session.GetInt32("UserType") == (int)UserTypeIdEnum.Admin)
+            {
+                ViewBag.UserName = HttpContext.Session.GetString("UserName");
                 return View();
+            }
             else
-                return RedirectToAction("index", "home");
-            
+                return RedirectToAction("index", "Home");
+
         }
         public JsonResult getSpDashboard()
         {
@@ -82,17 +86,7 @@ namespace Helperland.Controllers
         }
         public JsonResult getUserDetails()
         {
-            var result = (from cs in helperLandContext.Users
-                          where cs.UserTypeId != 1
-                          select new
-                          {
-                              firstname = cs.FirstName + " " + cs.LastName,
-                              date = cs.CreatedDate,
-                              usertype = cs.UserTypeId,
-                              mobile = cs.Mobile,
-                              postalcode = cs.ZipCode,
-                          }).ToList();
-            return Json(result);
+            return Json((from u in helperLandContext.Users select u).ToList());
         }
 
         public JsonResult getServiceDetail(int servicerequestid)
@@ -173,6 +167,23 @@ namespace Helperland.Controllers
             mailhelper.Send(emailModel);
             helperLandContext.SaveChanges();
             return Json(model);
+        }
+        [HttpPost]
+        public JsonResult userManagementUpdateActions(int userid, int actionid)
+        {
+            User user = helperLandContext.Users.Where(u => u.UserId == userid).FirstOrDefault();
+            if (user != null)
+            {
+                if (actionid == 1)
+                    user.IsActive = true;
+                else if (actionid == 2)
+                    user.IsActive = false;
+                else if (actionid == 3)
+                    user.IsApproved = true;
+            }
+            helperLandContext.Users.Update(user);
+            helperLandContext.SaveChanges();
+            return Json(userid);
         }
     }
 }

@@ -23,7 +23,7 @@
             <div class="user">
                 <ul>
                     <li><img src="~/img/user.png" alt=""></li>
-                    <li><p>Jeams Smith</p></li>
+                    <li><p>@ViewBag.UserName</p></li>
                     <li class="logout"><a asp-controller="home" asp-action="logout"><img src="~/img/logout.png" alt=""></a></li>
                 </ul>
             </div>
@@ -174,7 +174,7 @@
 
                     </div>
                     <div class="container table-responsive">
-                        <table id="usermgmt" class="table" style="min-width:1000px;">
+                        <table id="tblUserManagement" class="table" style="min-width:1000px;">
                             <thead>
                                 <tr>
                                     <th>User Name</th>
