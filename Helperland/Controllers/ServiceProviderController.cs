@@ -1,4 +1,5 @@
-﻿using Helperland.Data;
+﻿using Helperland.Core;
+using Helperland.Data;
 using Helperland.Enums;
 using Helperland.Models;
 using Helperland.ViewModels;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,12 +19,14 @@ namespace Helperland.Controllers
     public class ServiceProviderController : Controller
     {
         private readonly HelperLandContext helperLandContext;
+        private readonly IConfiguration configuration;
         private User _user;
         private ServiceRequest _serviceprovider;
 
-        public ServiceProviderController(HelperLandContext helperLandContext)
+        public ServiceProviderController(HelperLandContext helperLandContext, IConfiguration configuration)
         {
             this.helperLandContext = helperLandContext;
+            this.configuration = configuration;
         }
         public IActionResult becomeaprovider()
         {
@@ -211,20 +215,60 @@ namespace Helperland.Controllers
         public JsonResult AcceptService(int serviceRequestId)
         {
             var user = HttpContext.Session.GetInt32("UserId");
+            var name = HttpContext.Session.GetString("UserName");
             _serviceprovider = helperLandContext.ServiceRequests.Where(x=>x.ServiceRequestId == serviceRequestId).AsNoTracking().First();
             _serviceprovider.ServiceProviderId = user;
             _serviceprovider.SpacceptedDate = DateTime.Now;
             helperLandContext.ServiceRequests.Update(_serviceprovider);
+            var emails = (from sr in helperLandContext.ServiceRequests
+                          join u in helperLandContext.Users on sr.UserId equals u.UserId into u1
+                          from u in u1.DefaultIfEmpty()
+                          where sr.ServiceRequestId == serviceRequestId
+                          select new
+                          {
+                              customer = u.Email
+                          }).AsNoTracking();
+            EmailModel emailModel = new EmailModel();
+            string from = "";
+            foreach(var a in emails)
+            {
+                from = a.customer;
+            }
+            emailModel.To = from;
+            emailModel.Subject = "Service Request accepted by Serviceprovider!";
+            emailModel.Body = "Service ID: <strong>" + serviceRequestId + "</strong><br/><br/><strong>Updated Data:</strong><br/> ServiceProvider Id :" + user + "<br>ServiceProvider Name :"+ name ;
+            MailHelper mailhelper = new MailHelper(configuration);
+            mailhelper.Send(emailModel);
             helperLandContext.SaveChanges();
             return Json(serviceRequestId);
         }
         public JsonResult CancleService(int serviceRequestId)
         {
             var user = HttpContext.Session.GetInt32("UserId");
+            var name = HttpContext.Session.GetString("UserName");
             _serviceprovider = helperLandContext.ServiceRequests.Where(x => x.ServiceRequestId == serviceRequestId).AsNoTracking().First();
             _serviceprovider.ServiceProviderId = null;
             _serviceprovider.SpacceptedDate = null;
             helperLandContext.ServiceRequests.Update(_serviceprovider);
+            var emails = (from sr in helperLandContext.ServiceRequests
+                          join u in helperLandContext.Users on sr.UserId equals u.UserId into u1
+                          from u in u1.DefaultIfEmpty()
+                          where sr.ServiceRequestId == serviceRequestId
+                          select new
+                          {
+                              customer = u.Email
+                          }).AsNoTracking();
+            EmailModel emailModel = new EmailModel();
+            string from = "";
+            foreach (var a in emails)
+            {
+                from = a.customer;
+            }
+            emailModel.To = from;
+            emailModel.Subject = "Service Request cancled by Serviceprovider!";
+            emailModel.Body = "Service ID: <strong>" + serviceRequestId + "</strong><br/><br/><strong>Updated Data:</strong><br/> ServiceProvider Id :" + user + "<br>ServiceProvider Name :" + name;
+            MailHelper mailhelper = new MailHelper(configuration);
+            mailhelper.Send(emailModel);
             helperLandContext.SaveChanges();
             return Json(serviceRequestId);
         }

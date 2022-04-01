@@ -60,14 +60,14 @@ namespace Helperland.Controllers
 
         public async Task<IActionResult> index()
         {
-            var EmailId = HttpContext.Request.Cookies["EmailId"];
+            /*var EmailId = HttpContext.Request.Cookies["EmailId"];
             var Password = HttpContext.Request.Cookies["Password"];
             if (EmailId != null && Password != null)
             {
                 User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == EmailId && e.Password == Password);
-                /*if (HttpContext.Request.Cookies["EmailId"] != null && HttpContext.Request.Cookies["Password"] != null)
+                *//*if (HttpContext.Request.Cookies["EmailId"] != null && HttpContext.Request.Cookies["Password"] != null)
                 {
-                    User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == HttpContext.Request.Cookies["EmailId"] && e.Password == HttpContext.Request.Cookies["Password"]);*/
+                    User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == HttpContext.Request.Cookies["EmailId"] && e.Password == HttpContext.Request.Cookies["Password"]);*//*
 
                 if (user != null && user.IsApproved == true)
                 {
@@ -80,6 +80,24 @@ namespace Helperland.Controllers
                     else
                         return RedirectToAction("index", "admin");
                   
+                }
+                return View();
+            }
+            else
+                return View();*/
+            if (HttpContext.Request.Cookies["EmailId"] != null && HttpContext.Request.Cookies["Password"] != null)
+            {
+                User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == HttpContext.Request.Cookies["EmailId"] && e.Password == HttpContext.Request.Cookies["Password"]);
+                if (user != null && user.IsApproved == true)
+                {
+                    HttpContext.Session.SetInt32("UserType", user.UserTypeId);
+                    HttpContext.Session.SetString("UserName", user.FirstName + ' ' + user.LastName);
+                    if (user.UserTypeId == (int)UserTypeIdEnum.Customer)
+                        return RedirectToAction("servicehistory", "Home");
+                    else if (user.UserTypeId == (int)UserTypeIdEnum.ServiceProvider)
+                        return RedirectToAction("upcomingservice", "serviceprovider");
+                    else
+                        return RedirectToAction("index", "admin");
                 }
                 return View();
             }
@@ -109,7 +127,7 @@ namespace Helperland.Controllers
                 if (model.attachment != null)
                 {
                     string UploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "upload\\contactus_attachment");
-                    filename =  model.attachment.FileName;
+                    filename = model.attachment.FileName;
                     filepath = Path.Combine(UploadsFolder, filename);
                     using (var fileStream = new FileStream(filepath, FileMode.Create))
                     {
@@ -134,7 +152,7 @@ namespace Helperland.Controllers
                     From = "",
                     To = "",
                     Subject = Newcontact.Subject,
-                    Body ="Custname :"+ Newcontact.Name+"<br> Email :"+Newcontact.Email +"<br> Mobile :"+ Newcontact.PhoneNumber+ "<br> Message :"+ Newcontact.Message,
+                    Body = "Custname :" + Newcontact.Name + "<br> Email :" + Newcontact.Email + "<br> Mobile :" + Newcontact.PhoneNumber + "<br> Message :" + Newcontact.Message,
                     Attachment = filepath
                 };
                 MailHelper mailhelp = new MailHelper(configuration);
@@ -164,12 +182,12 @@ namespace Helperland.Controllers
             else
                 return RedirectToAction("index", "home");
         }
-        
+
         public IActionResult bookservice()
         {
             if (HttpContext.Session.GetInt32("UserType") == null)
             {
-                
+
                 ViewBag.openLoginModel = true;
                 HttpContext.Session.SetInt32("redirectToBookService", 1);
                 return View("~/Views/home/index.cshtml");
@@ -179,9 +197,9 @@ namespace Helperland.Controllers
                 HttpContext.Session.GetInt32("UserId");
                 HttpContext.Session.GetString("UserName");
                 return View();
-            } 
+            }
         }
-        
+
 
         [HttpPost]
         public JsonResult checkAvailabilitySP(string zipcode)
@@ -192,7 +210,7 @@ namespace Helperland.Controllers
                 result = true;
             return Json(result);
         }
-       
+
         public IActionResult Privacy()
         {
             return View();
@@ -228,7 +246,7 @@ namespace Helperland.Controllers
                     return RedirectToAction("customersignup", "home");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -247,18 +265,19 @@ namespace Helperland.Controllers
         }
 
         [HttpPost]
-        [Route("home/index")]
+        /*[Route("home/index")]*/
         public async Task<IActionResult> loginUser(LoginAndForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = await helperLandContext.Users.FirstOrDefaultAsync(e=>e.Email == model.Login.email && e.Password == model.Login.password);
-                if (user != null && user.IsApproved == true)
+                User user = await helperLandContext.Users.FirstOrDefaultAsync(e => e.Email == model.Login.email && e.Password == model.Login.password);
+                if (user != null && user.IsActive == true)
                 {
                     if (model.Login.isRemember == true)
                     {
-                        HttpContext.Response.Cookies.Append("EmailId", user.Email);
-                        HttpContext.Response.Cookies.Append("Password", user.Password);
+                        CookieOptions cookieOptions = new CookieOptions();
+                        HttpContext.Response.Cookies.Append("EmailId", user.Email, cookieOptions);
+                        HttpContext.Response.Cookies.Append("Password", user.Password, cookieOptions);
                     }
                     HttpContext.Session.SetInt32("UserType", user.UserTypeId);
                     HttpContext.Session.SetString("UserName", user.FirstName);
@@ -268,12 +287,12 @@ namespace Helperland.Controllers
                     else if (user.UserTypeId == (int)UserTypeIdEnum.ServiceProvider)
                         return RedirectToAction("upcomingservice", "serviceprovider");
                     else
-                        return RedirectToAction("index", "admin");                  
+                        return RedirectToAction("index", "admin");
                 }
-                else if (user != null && user.IsApproved == false)
+                else if (user != null && user.IsActive == false)
                     TempData["errMsg"] = "Still you are not Approved by Admin!!";
                 else
-                    TempData["errMsg"] = "Invalid Username/Password";                
+                    TempData["errMsg"] = "Invalid Username/Password";
             }
             ViewBag.openLoginModel = true;
             return View("~/Views/home/index.cshtml", model);
@@ -296,7 +315,7 @@ namespace Helperland.Controllers
                     {
                         To = model.ForgotPassword.email,
                         Subject = "Helperland Reset Password",
-                        Body = "<h2>Reset Password Link:</h2><br/> " + "http://" + this.Request.Host.ToString() + "/home/resetpassword?token=" + encrypt                        
+                        Body = "<h2>Reset Password Link:</h2><br/> " + "http://" + this.Request.Host.ToString() + "/home/resetpassword?token=" + encrypt
                     };
                     MailHelper mailhelper = new MailHelper(configuration);
                     mailhelper.Send(emailModel);
@@ -376,7 +395,7 @@ namespace Helperland.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("index", "home");
         }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        /* [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]*/
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -394,9 +413,9 @@ namespace Helperland.Controllers
         public JsonResult getAllUserAddresses()
         {
             if (HttpContext.Request.Cookies["UserId"] != null)
-                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(Int32.Parse(HttpContext.Request.Cookies["UserId"])) ));
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(Int32.Parse(HttpContext.Request.Cookies["UserId"]))));
             else
-                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(HttpContext.Session.GetInt32("UserId")) ));
+                return Json(helperLandContext.UserAddresses.Where(a => a.UserId.Equals(HttpContext.Session.GetInt32("UserId"))));
         }
 
         public JsonResult getUserDetails()
@@ -423,7 +442,7 @@ namespace Helperland.Controllers
                     TempData["errMsg"] = "Invalid Password";
                 }
             }
-            
+
 
             return Json(model);
         }
@@ -435,10 +454,10 @@ namespace Helperland.Controllers
             _user.FirstName = model.firstname;
             _user.LastName = model.lastname;
             _user.Mobile = model.mobile;
-            
+
             helperLandContext.Users.Update(_user);
             helperLandContext.SaveChanges();
-            
+
             return Json(model);
         }
         [HttpPost]
@@ -515,13 +534,238 @@ namespace Helperland.Controllers
                 Email = userAddress.Email
             };
             serviceRequestAddressRepository.saveServiceRequestAddress(serviceRequestAddress);
-            return Json(model);
-            
-            
+
+            EmailModel emailModel;
+            List<User> availableSPsInGivenZipcode = (from u in helperLandContext.Users
+                                                     join fb in helperLandContext.FavoriteAndBlockeds on u.UserId equals fb.UserId into fb1
+                                                     from fb in fb1.DefaultIfEmpty()
+                                                     where u.ZipCode == serviceRequest.ZipCode && u.IsApproved == true && u.UserTypeId == (int)UserTypeIdEnum.ServiceProvider && Convert.ToInt16(model.UserId) != fb.TargetUserId
+                                                     select u).ToList();
+
+            foreach (var sps in availableSPsInGivenZipcode)
+            {
+                emailModel = new EmailModel
+                {
+                    To = sps.Email,
+                    Subject = "Service Request Available!!",
+                    Body = "Service Request ID: " + serviceRequest.ServiceRequestId
+                };
+                MailHelper mailhelper = new MailHelper(configuration);
+                mailhelper.Send(emailModel);
+            }
+            return Json(serviceRequest.ServiceRequestId);
+        }
+        [HttpPost]
+        public JsonResult checkUserPassword()
+        {
+            var user = HttpContext.Session.GetInt32("UserId");
+            var x = helperLandContext.Users.Where(p => p.UserId == user).FirstOrDefault();
+            return Json(x);
         }
 
+        [HttpPost]
+        public JsonResult updateUserPassword(string password)
+        {
+            var userid = HttpContext.Session.GetInt32("UserId");
+            User user = helperLandContext.Users.Where(u => u.UserId == userid).FirstOrDefault();
+            if (user != null)
+            {
+                user.Password = password;
+            }
+            helperLandContext.Users.Update(user);
+            helperLandContext.SaveChanges();
+            return Json(password);
+        }
+
+        public JsonResult GetCustomerDashboard()
+        {
+            var userid = HttpContext.Session.GetInt32("UserId");
+            var result = (from cs in helperLandContext.Users
+                          join sr in helperLandContext.ServiceRequests on cs.UserId equals sr.UserId into sr1
+                          from sr in sr1.DefaultIfEmpty()
+                          join sp in helperLandContext.Users on sr.ServiceProviderId equals sp.UserId into sp1
+                          from sp in sp1.DefaultIfEmpty()
+                          where cs.UserId == userid && sr.Status != 1 && sr.Status != 3
+                          select new
+                          {
+                              CustomerId = (int?)cs.UserId,
+                              ServiceRequestId = (int?)sr.ServiceRequestId,
+                              ServiceDateTime = (DateTime?)sr.ServiceStartDate,
+                              ServiceProviderId = (int?)sr.ServiceProviderId,
+                              ServiceProviderName = sp.FirstName + " " + sp.LastName,
+                              ServiceProviderProfile = sp.UserProfilePicture,
+                              Payment = (int?)sr.TotalCost,
+                              ServiceHours = (decimal?)sr.ServiceHours,
+                              SPRate = helperLandContext.Ratings.Where(x => x.RatingTo == (int?)sp.UserId).Select(z => z.Ratings).AsEnumerable()
+                          }).ToList();
+            return Json(result);
+        }
+        [HttpGet]
+        public JsonResult getServiceDetails(int servicerequestid)
+        {
+            var result = (from sr in helperLandContext.ServiceRequests
+                          join sra in helperLandContext.ServiceRequestAddresses on sr.ServiceRequestId equals sra.ServiceRequestId
+                          where sr.ServiceRequestId == servicerequestid
+                          select new
+                          {
+                              ServiceProviderId = sr.ServiceProviderId,
+                              ServiceStartDateTime = sr.ServiceStartDate,
+                              ServiceDuration = sr.ServiceHours,
+                              ServiceNetAmount = sr.TotalCost,
+                              Comments = sr.Comments,
+                              HasPets = sr.HasPets,
+                              AddressId = sra.Id,
+                              AddressLine1 = sra.AddressLine1,
+                              AddressLine2 = sra.AddressLine2,
+                              City = sra.City,
+                              State = sra.State,
+                              Postalcode = sra.PostalCode,
+                              Mobile = sra.Mobile,
+                          }).ToList();
+            return Json(result);
+        }
+        [HttpGet]
+        public JsonResult getCustomerServiceHistory()
+        {
+            var userid = HttpContext.Session.GetInt32("UserId");
+            var result = (from cs in helperLandContext.Users
+                          join sr in helperLandContext.ServiceRequests on (int?)cs.UserId equals (int?)sr.UserId into sr1
+                          from sr in sr1.DefaultIfEmpty()
+                          join sp in helperLandContext.Users on (int?)sr.ServiceProviderId equals (int?)sp.UserId into sp1
+                          from sp in sp1.DefaultIfEmpty()
+                          where (int?)cs.UserId == userid && (int?)sr.Status == 1 || sr.Status == 3
+                          select new
+                          {
+                              CustomerId = (int?)cs.UserId,
+                              ServiceRequestId = (int?)sr.ServiceRequestId,
+                              ServiceDateTime = (DateTime?)sr.ServiceStartDate,
+                              ServiceProviderId = (int?)sr.ServiceProviderId,
+                              ServiceProviderName = sp.FirstName + " " + sp.LastName,
+                              ServiceProviderProfile = sp.UserProfilePicture,
+                              Payment = (int?)sr.TotalCost,
+                              ServiceHours = (decimal?)sr.ServiceHours,
+                              /*SPRate = helperLandContext.Ratings.Where(x => x.RatingTo == (int?)sp.UserId).Select(z => z.Ratings).AsEnumerable(),*/
+                              ServiceStatus = (int?)sr.Status
+                          }).ToList();
+            return Json(result);
+        }
+        [HttpPost]
+        public JsonResult cancelServiceRequest(int servicerequestid)
+        {
+            var userid = HttpContext.Session.GetInt32("UserId");
+            ServiceRequest serviceRequest = helperLandContext.ServiceRequests.Where(s => s.ServiceRequestId == servicerequestid).FirstOrDefault();
+            if (serviceRequest != null)
+            {
+                serviceRequest.Status = 3;
+                serviceRequest.ModifiedBy = userid;
+                serviceRequest.ModifiedDate = DateTime.Now;
+            }
+            helperLandContext.ServiceRequests.Update(serviceRequest);
+            var emails = (from sr in helperLandContext.ServiceRequests
+                          join u in helperLandContext.Users on sr.UserId equals u.UserId
+                          join sp in helperLandContext.Users on sr.ServiceProviderId equals sp.UserId into sp1
+                          from sp in sp1.DefaultIfEmpty()
+                          where sr.ServiceRequestId == servicerequestid
+                          select new
+                          {
+                              serviceProviderEmail = sp.Email,
+                              availableSps = (from u in helperLandContext.Users
+                                              join fb in helperLandContext.FavoriteAndBlockeds on u.UserId equals fb.UserId into fb1
+                                              from fb in fb1.DefaultIfEmpty()
+                                              where u.ZipCode == sr.ZipCode && u.IsApproved == true && u.UserTypeId == (int)UserTypeIdEnum.ServiceProvider && Convert.ToInt16(userid) != fb.TargetUserId
+                                              select u.Email).AsNoTracking().ToList()
+                          }).AsNoTracking().ToList();
+            EmailModel emailModel = new EmailModel();
+            string stremails = "";
+            var vCount = 0;
+            foreach (var e in emails)
+            {
+                if (e.serviceProviderEmail != null)
+                {
+                    stremails += e.serviceProviderEmail;
+                }
+                else
+                {
+                    foreach (var sps in e.availableSps)
+                    {
+                        if (vCount == 0)
+                        {
+                            stremails += sps;
+                            vCount++;
+                        }
+                        else
+                        {
+                            stremails += "," + sps;
+                        }
+                    }
+                }
+            }
+            emailModel.To = stremails;
+            emailModel.Subject = "Service Request Cancelled by Customer!";
+            emailModel.Body = "Cancelled Service ID: <strong>" + servicerequestid + "</strong>";
+            MailHelper mailhelper = new MailHelper(configuration);
+            mailhelper.Send(emailModel);
+            return Json(helperLandContext.SaveChanges());
+        }
+        [HttpPost]
+        public JsonResult updateServiceRequest([FromBody] updateServiceReqViewModel model)
+        {
+            var userid = HttpContext.Session.GetInt32("UserId");
+            ServiceRequest serviceRequest = helperLandContext.ServiceRequests.Where(s => s.ServiceRequestId == model.ServiceRequestId).FirstOrDefault();
+            if (serviceRequest != null)
+            {
+                serviceRequest.ServiceStartDate = Convert.ToDateTime(model.ServiceStartDate.ToString().Trim() + " " + model.ServiceStartTime.ToString().Trim());
+                serviceRequest.ModifiedBy = userid;
+                serviceRequest.ModifiedDate = DateTime.Now;
+            }
+            helperLandContext.ServiceRequests.Update(serviceRequest);
+            var emails = (from sr in helperLandContext.ServiceRequests
+                          join u in helperLandContext.Users on sr.UserId equals u.UserId
+                          join sp in helperLandContext.Users on sr.ServiceProviderId equals sp.UserId into sp1
+                          from sp in sp1.DefaultIfEmpty()
+                          where sr.ServiceRequestId == model.ServiceRequestId
+                          select new
+                          {
+                              serviceProviderEmail = sp.Email,
+                              availableSps = (from u in helperLandContext.Users
+                                              join fb in helperLandContext.FavoriteAndBlockeds on u.UserId equals fb.UserId into fb1
+                                              from fb in fb1.DefaultIfEmpty()
+                                              where u.ZipCode == sr.ZipCode && u.IsApproved == true && u.UserTypeId == (int)UserTypeIdEnum.ServiceProvider && Convert.ToInt16(userid) != fb.TargetUserId
+                                              select u.Email).AsNoTracking().ToList()
+                          }).AsNoTracking().ToList();
+            EmailModel emailModel = new EmailModel();
+            string stremails = "";
+            var vCount = 0;
+            foreach (var e in emails)
+            {
+                if (e.serviceProviderEmail != null)
+                {
+                    stremails += e.serviceProviderEmail;
+                }
+                else
+                {
+                    foreach (var sps in e.availableSps)
+                    {
+                        if (vCount == 0)
+                        {
+                            stremails += sps;
+                            vCount++;
+                        }
+                        else
+                        {
+                            stremails += "," + sps;
+                        }
+                    }
+                }
+            }
+            emailModel.To = stremails;
+            emailModel.Subject = "Service Request Reschedule by Customer!";
+            emailModel.Body = "Service ID: <strong>" + model.ServiceRequestId + "</strong><br/><br/>Reschedule Service Date & Time: <strong>" + model.ServiceStartDate + " " + model.ServiceStartTime + "</strong>";
+            MailHelper mailhelper = new MailHelper(configuration);
+            mailhelper.Send(emailModel);
+            return Json(helperLandContext.SaveChanges());
+        }
 
     }
 
-    
 }

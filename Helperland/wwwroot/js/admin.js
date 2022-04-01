@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     getSpDashboard();
-    //getUserDetails();
     showAdminPanelUserManagementData();
 });
 
@@ -85,31 +84,7 @@ function showServiceRequestDetails(serviceRequestId) {
         }
     });
 }
-/*function getUserDetails(){
-    $.ajax({
-        type: "get",
-        url: "/Admin/getUserDetails",
-        dataType: "json",
-        success: function (data) {
-            var usermgmt = $('#usermgmt').DataTable();
-                for (var i = 0; i < data.length; i++) {
-                    var regdate = new Date(data[i].date).toLocaleDateString('en-GB');
-                    usermgmt.row.add([
-                        "<div>" + data[i].firstname + "</div>",
-                        "<div>" + regdate + "</div>",
-                        "<div>" + data[i].usertype+ "</div>",
-                        "<div>" + data[i].mobile + "</div>",
-                        "<div>" + data[i].postalcode + "</div>",
-                        "",
-                        "",
-                    ]).draw(false);
-                }
-        },
-        error: function (data) {
-            alert("error: " + response.responseText);
-        }
-    });
-}*/
+
 function chnginService(serviceRequestId) {
 
     $.ajax({
@@ -139,30 +114,65 @@ function chnginService(serviceRequestId) {
 }
 
 function updateReq() {
-    var data = {}
-    data.serviceStartDate = $("#date").val();
-    data.serviceStartTime = $("#time").val();
-    data.addressLine1 = $("#address1").val();
-    data.addressLine2 = $("#address2").val();
-    data.postalcode = $("#postalcode").val();
-    data.serviceRequestId = $("#serviceRequestId").val();
-    data.city = $("#city").val();
-    $.ajax({
-        type: 'post',
-        url: "/Admin/updateReq",
-        dataType: "Json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(data),
-        success: function (resp) {
-            debugger;
-            if (resp) {
-                alert("Changed");
+    var count = 0;
+    if (!document.getElementById("address1").value) {
+        document.getElementById("txtStreet").innerHTML = "Street name required !";
+        count--;
+    }
+    else {
+        document.getElementById("txtStreet").innerHTML = "";
+        count++;
+    }
+    if (!document.getElementById("address2").value) {
+        document.getElementById("txtHouse").innerHTML = "House Num name required !";
+        count--;
+    }
+    else {
+        document.getElementById("txtHouse").innerHTML = "";
+        count++;
+    }
+    if (!document.getElementById("postalcode").value) {
+        document.getElementById("txtPostal").innerHTML = "Postalcode required !";
+        count--;
+    }
+    else {
+        document.getElementById("txtPostal").innerHTML = "";
+        count++;
+    }
+    if (!document.getElementById("city").value) {
+        document.getElementById("txtCity").innerHTML = "City required !";
+        count--;
+    }
+    else {
+        document.getElementById("txtCity").innerHTML = "";
+        count++;
+    }
+    if (count == 4) {
+        var data = {}
+        data.serviceStartDate = $("#date").val();
+        data.serviceStartTime = $("#time").val();
+        data.addressLine1 = $("#address1").val();
+        data.addressLine2 = $("#address2").val();
+        data.postalcode = $("#postalcode").val();
+        data.serviceRequestId = $("#serviceRequestId").val();
+        data.city = $("#city").val();
+        $.ajax({
+            type: 'post',
+            url: "/Admin/updateReq",
+            dataType: "Json",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (resp) {
+                if (resp) {
+                    alert("Details Changed Successfully");
+                    location.reload(true);;
+                }
+            },
+            error: function (err) {
+                console.log(err);
             }
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
+        });
+    }
 }
 function showAdminPanelUserManagementData() {
     $.ajax({
@@ -271,7 +281,6 @@ function adminUserManagementActions(userId, actionid) {
             }
         },
         error: function (response) {
-            $("#dvLoader").removeClass("is-active");
             console.log("adminJS.js->adminUserManagementActions error: " + response.responseText);
         }
     });

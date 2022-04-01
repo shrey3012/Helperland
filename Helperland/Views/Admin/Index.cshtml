@@ -217,7 +217,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                       
                             <input type="hidden" id="serviceRequestId">
                             <div class="mb-3 ms-3 ps-1">
                                 <span class="small text-danger" id="spneditServicerequestAdminPanelSRs"></span>
@@ -232,6 +232,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label">Time</label>
+                                        <span class="small text-danger" id="txtTime"></span>
                                         <select class="form-control" formcontrolname="ServiceTime" id="time">
                                             <option>08:00</option>
                                             <option>08:30</option>
@@ -267,31 +268,35 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label normal">Street name</label>
+                                        <span class="small text-danger" id="txtStreet"></span>
                                         <input class="form-control " id="address1" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label normal">House number</label>
+                                        <span class="small text-danger" id="txtHouse"></span>
                                         <input class="form-control " id="address2" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label normal">Postal code</label>
+                                        <span class="small text-danger" id="txtPostal"></span>
                                         <input class="form-control " id="postalcode" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="control-label normal">City</label>
+                                        <span class="small text-danger" id="txtCity"></span>
                                         <input class="form-control " formcontrolname="city" name="city" id="city" type="text">
                                     </div>
                                 </div>
                             </div>
 
                             <button class="btn btn-primary mt-2" onclick="updateReq();" id="change">Update</button>
-                        </form>
+                        
                     </div>
                 </div>
             </div>

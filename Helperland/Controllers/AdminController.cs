@@ -119,7 +119,6 @@ namespace Helperland.Controllers
             if (serviceRequest != null)
             {
                 serviceRequest.ServiceStartDate = Convert.ToDateTime(model.serviceStartDate.ToString().Trim() + " " + model.serviceStartTime.ToString().Trim());
-                serviceRequest.ZipCode = model.postalCode;
                 serviceRequest.ModifiedDate = DateTime.Now;
             }
             helperLandContext.ServiceRequests.Update(serviceRequest);

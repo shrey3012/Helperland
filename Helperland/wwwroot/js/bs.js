@@ -30,7 +30,7 @@ function Tab1Click() {
   $("#tab2").removeClass("active-tab").addClass("tab");
   $("#tab3").removeClass("active-tab").addClass("tab");
   $("#tab4").removeClass("active-tab").addClass("tab");
-
+  
   $("#tabContent2").hide();
   $("#tabContent3").hide();
   $("#tabContent4").hide();
@@ -38,6 +38,7 @@ function Tab1Click() {
 }
 
 function Tab2Click() {
+    $("#tab2").removeAttribute("onclick");
   $("#tab2").addClass("active-tab");
   $("#tab1").removeClass("active-tab").addClass("tab");
   $("#tab3").removeClass("active-tab").addClass("tab");
@@ -49,6 +50,7 @@ function Tab2Click() {
   $("#tabContent2").show();
 }
 function Tab3Click() {
+    $("#tab3").removeAttribute("onclick");
   $("#tab3").addClass("active-tab");
   $("#tab1").removeClass("active-tab").addClass("tab");
   $("#tab2").removeClass("active-tab").addClass("tab");
@@ -58,10 +60,11 @@ function Tab3Click() {
   $("#tabContent2").hide();
   $("#tabContent4").hide();
   $("#tabContent3").show();
-  $("#divAddress").html("Loading Address view...")
-      ;
+    $("#divAddress").html("Loading Address view...");
+      
 }
 function Tab4Click() {
+    $("#tab4").removeAttribute("onclick");
   $("#tab4").addClass("active-tab");
   $("#tab1").removeClass("active-tab").addClass("tab");
   $("#tab2").removeClass("active-tab").addClass("tab");
@@ -116,8 +119,7 @@ function SaveServiceDetail() {
   $("#tab2").removeClass("active-tab").addClass("tab");
   $("#tabContent2").hide();
   $("#tabContent4").hide();
-  $("#tabContent3").show();
- 
+    $("#tabContent3").show();
 }
 function SaveAddress() {
   $("#tab4").addClass("active-tab");

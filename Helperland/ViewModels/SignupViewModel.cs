@@ -18,7 +18,7 @@ namespace Helperland.ViewModels
 
         [Required]
         [EmailAddress(ErrorMessage = "Enter valid Email Id!")]
-        [Remote(action: "isEmailAlreadyRegistered", controller: "Home")]
+        [Remote(action: "IsEmailAlreadyRegistered", controller: "Home")]
         public string email { get; set; }
 
         [Required]

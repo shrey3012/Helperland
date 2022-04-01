@@ -208,12 +208,16 @@ function changeCusPassword() {
         dataType: "JSON",
         url: "/ServiceProvider/checkUserPassword",
         success: function (response) {
+            debugger;
             document.getElementById("spnoldpwdUserchangepwd").innerHTML = "";
-            if (response.password == document.getElementById("txtoldpwdUserchangepwd").value) {
-                updateUserPassword();
+            if (response.password != document.getElementById("txtoldpwdUserchangepwd").value) {
+                document.getElementById("spnoldpwdUserchangepwd").innerHTML = "Incorrect old password!";
+            }
+            else if ($("#txtnewpwdUserchangepwd").val() != $("#txtconfirmnewpwdUserchangepwd").val()) {
+                document.getElementById("spnconfirmnewpwdUserchangepwd").innerHTML = "Password & confirm password value are not same!";
             }
             else {
-                document.getElementById("spnoldpwdUserchangepwd").innerHTML = "Incorrect old password!";
+                updateUserPassword();
             }
         },
         error: function (response) {
@@ -503,18 +507,48 @@ function saveSPDetails() {
 
     }
     if ($("#postal").val().trim().length == 0) {
-        document.getElementById("spnPostalCodeSPAdd").innerHTML = "Enter Postal code!!";
+        document.getElementById("spnPostalCodeSPAdd").innerHTML = "Enter valid Postal code!!";
         vSPDetailsCount--;
 
     }
-    else if ($("#postal").val().trim().length > 0 || $("#postal").val().trim().length < 6) {
-        if ($("#postal").val().trim().length == 6 && document.getElementById("spnPostalCodeSPAdd").innerHTML == "") {
+    else if ($("#postal").val().trim().length < 6 || $("#postal").val().trim().length > 6) {
+        document.getElementById("spnPostalCodeSPAdd").innerHTML = "Enter valid Postal code!!";
+        vSPDetailsCount--;
+    }
+        else  {
+            document.getElementById("spnPostalCodeSPAdd").innerHTML == ""
             vSPDetailsCount++;
         }
-        
+    if ($("#streetName").val().trim().length > 0) {
+
+        $("#spnStreetNameSPAdd").html("");
+        vSPDetailsCount++;
+    }
+    else {
+        $("#spnStreetNameSPAdd").html("Enter Street name!!");
+        vSPDetailsCount--;
+    }
+    if ($("#house").val().trim().length > 0) {
+
+        $("#spnHouseNumberSPAdd").html("");
+        vSPDetailsCount++;
+    }
+    else {
+        $("#spnHouseNumberSPAdd").html("Enter House num!!");
+        vSPDetailsCount--;
+    }
+    if ($("#city").val().trim().length > 0) {
+
+        $("#spncity").html("");
+        vSPDetailsCount++;
+    }
+    else {
+        $("#spncity").html("Enter City Name!");
+        vSPDetailsCount--;
     }
     
-    if (vSPDetailsCount == 4) {
+    
+    if (vSPDetailsCount == 7) {
         var data = {};
         data.firstName = $("#firstName").val();
         data.LastName= $("#lastname").val();
@@ -533,14 +567,17 @@ function saveSPDetails() {
             data.SPProfilePicture = $("#imgSPProfie").attr('src');
         }
         $.ajax({
-            type: "post",
-            dataType: "JSON",
+            type: "POST",
+            dataType: "json",
             data: JSON.stringify(data),
             contentType: "application/json",
             url: "/ServiceProvider/updateSPDetails",
             success: function (response) {
-                alert("Data updated successfully");
-                getSpdetails();
+                if (response) {
+                    alert("Data updated successfully");
+                    //$('.nav-tabs a[href="#v-pills-home-tab"]').tab('show');
+                    $("#v-pills-home-tab").tab('show');
+                }
             },
             error: function (response) {
                 alert("error: " + response.responseText);
